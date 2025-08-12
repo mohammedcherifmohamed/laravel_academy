@@ -13,22 +13,58 @@ class CategoryController extends Controller
       return view('Admin.Category',compact("categories"));
    }
 
-   public function addCategory(Request $req){
+      public function addCategory(Request $req){
 
-      $req->validate([
-            'name' => 'required|max:200',
-            'icon' => 'required'
-      ]);
+            $req->validate([
+                  'name' => 'required|max:200',
+                  'icon' => 'required'
+            ]);
 
-      Category::create([
-            'name' => $req->name,
-            'icon' => $req->icon,
-      ]);
+            Category::create([
+                  'name' => $req->name,
+                  'icon' => $req->icon,
+            ]);
 
-      return redirect()->back()->with('success', 'Category created successfully!');
+            return redirect()->back()->with('success', 'Category created successfully!');
+      }
+
+      public function DeleteCategory($id){
+            $category = Category::find($id);
+            if($category){
+                  $category->delete();
+                  return redirect()->back()->with('success', 'Category deleted successfully!');
+            } else {
+                  return redirect()->back()->with('Fail', 'Category not found!');
+            }
       }
 
 
+      public function editCategory($id){
+            $category = Category::find($id);
+            if($category){
+                  return view('Admin.editCategory', compact('category'));
+            } else {
+                  return redirect()->back()->with('Fail', 'Category not found!');
+            }
+      }
+
+      public function UpdateCategory(Request $req, $id){
+            $req->validate([
+                  'name' => 'required|max:200',
+                  'icon' => 'required'
+            ]);
+
+            $category = Category::find($id);
+            if($category){
+                  $category->update([
+                        'name' => $req->name,
+                        'icon' => $req->icon,
+                  ]);
+                  return redirect()->route('admin.categories')->with('success', 'Category updated successfully!');
+            } else {
+                  return redirect()->back()->with('Fail', 'Category not found!');
+            }
+      }
 
 
 }

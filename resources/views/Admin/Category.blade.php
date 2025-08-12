@@ -53,8 +53,12 @@
 
                         <!-- Actions -->
                         <td class="p-3 text-white align-middle">
+                            <form onsubmit="return confirm('Are you sure you want to delete this category?');" action="{{route('category.delete',$category->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-red-600 hover:underline">Delete</button>
+                            </form>
                             <button class="text-indigo-600 hover:underline">Edit</button> | 
-                            <button class="text-red-600 hover:underline">Delete</button>
                         </td>
                     </tr>
 
@@ -79,7 +83,7 @@
             <h2 class="text-lg font-bold text-indigo-600">Add New Category</h2>
             <button onclick="closeCategoryModal()" class="text-gray-500 hover:text-red-500">&times;</button>
         </div>
-        <form action="{{route('category.add')}}" method="POST" class="space-y-4">
+        <form id="categoryForm" action="{{route('category.add')}}" method="POST" class="space-y-4">
            @csrf
             <!-- Name -->
             <div>
@@ -113,13 +117,6 @@
     </div>
 </div>
 
-<script>
-function openCategoryModal() {
-    document.getElementById('addCategoryModal').classList.remove('hidden');
-}
-function closeCategoryModal() {
-    document.getElementById('addCategoryModal').classList.add('hidden');
-}
-</script>
+
 
 @endsection
