@@ -1,7 +1,7 @@
 
 console.log('Dashboard script loaded');
 
-window.openEditModel = function(id) {
+window.openEditInstructorModel = function(id) {
     console.log("Editing instructor:", id);
     document.getElementById('addInstructorModal').classList.remove('hidden');
      // Change form action to update route

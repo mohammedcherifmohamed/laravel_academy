@@ -20,41 +20,17 @@
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">Popular Categories</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 <!-- Category cards will be populated by JavaScript -->
-                  <!-- Web Development -->
-      <a href="category.html?id=1" class="flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition">
-        <img src="images/web-dev-icon.png" alt="Web Development" class="w-16 h-16 mb-2">
-        <span class="text-gray-800 dark:text-white font-medium">Web Development</span>
-      </a>
       
-      <!-- Data Science -->
-      <a href="category.html?id=2" class="flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition">
-        <img src="images/data-science-icon.png" alt="Data Science" class="w-16 h-16 mb-2">
-        <span class="text-gray-800 dark:text-white font-medium">Data Science</span>
-      </a>
+      @forelse($categories as $category)
+                  <a href="category.html?id=6" class="flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition">
+            <img src="{{asset('icons/'.$category->icon)}}" alt="Photography" class="w-16 h-16 mb-2">
+            <span class="text-gray-800 dark:text-white font-medium">{{$category->name}}</span>
+          </a>
+      @empty
+          
+      @endforelse
+          <!-- Photography -->
       
-      <!-- Design -->
-      <a href="category.html?id=3" class="flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition">
-        <img src="images/design-icon.png" alt="Design" class="w-16 h-16 mb-2">
-        <span class="text-gray-800 dark:text-white font-medium">Design</span>
-      </a>
-      
-      <!-- Business -->
-      <a href="category.html?id=4" class="flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition">
-        <img src="images/business-icon.png" alt="Business" class="w-16 h-16 mb-2">
-        <span class="text-gray-800 dark:text-white font-medium">Business</span>
-      </a>
-      
-      <!-- Marketing -->
-      <a href="category.html?id=5" class="flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition">
-        <img src="images/marketing-icon.png" alt="Marketing" class="w-16 h-16 mb-2">
-        <span class="text-gray-800 dark:text-white font-medium">Marketing</span>
-      </a>
-      
-      <!-- Photography -->
-      <a href="category.html?id=6" class="flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition">
-        <img src="images/photography-icon.png" alt="Photography" class="w-16 h-16 mb-2">
-        <span class="text-gray-800 dark:text-white font-medium">Photography</span>
-      </a>
             </div>
         </div>
     </section>
@@ -68,65 +44,32 @@
             </div>
             <div id="courseList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Featured courses will be populated by JavaScript -->
-              
-      <!-- JavaScript for Beginners -->
-      <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-        <img src="images/js-course.jpg" alt="JavaScript for Beginners" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span>
-          <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-white">JavaScript for Beginners</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-300">Category: Web Development</p>
-          <div class="flex items-center mt-2">
-            <img src="images/alice.jpg" alt="Alice Johnson" class="w-8 h-8 rounded-full mr-2">
-            <span class="text-sm text-gray-700 dark:text-gray-200">Alice Johnson</span>
-          </div>
-          <p class="mt-2 text-yellow-500">
-            ★ 4.8 <span class="text-gray-500 dark:text-gray-400">(12 hrs)</span>
-          </p>
-          <p class="text-gray-600 dark:text-gray-300 mt-2">Learn JavaScript from scratch with hands-on examples and projects.</p>
-          <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">$39.99</p>
-          <a href="course-detail.html?id=1" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
-        </div>
-      </div>
+               @forelse($courses as $course)
+                  <!-- JavaScript for Beginners -->
+              <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                <img src="images/js-course.jpg" alt="JavaScript for Beginners" class="w-full h-48 object-cover">
+                <div class="p-4">
+                  <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span>
+                  <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{{$course->title}}</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-300">{{$course->category->name}}</p>
+                  <div class="flex items-center mt-2">
+                    <img src="images/alice.jpg" alt="Alice Johnson" class="w-8 h-8 rounded-full mr-2">
+                    <span class="text-sm text-gray-700 dark:text-gray-200">{{$course->instructor->full_name}}</span>
+                  </div>
+                  <p class="mt-2 text-yellow-500">
+                    ★ 4.8 <span class="text-gray-500 dark:text-gray-400">(12 hrs)</span>
+                  </p>
+                  <p class="text-gray-600 dark:text-gray-300 mt-2">{{$course->description}}</p>
+                  <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">{{$course->price}}</p>
+                  <a href="course-detail.html?id=1" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
+                </div>
+              </div>
+               @empty
+                <h1>No Courses Found</h1>
+               @endforelse
+      
 
-      <!-- Data Science with Python -->
-      <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-        <img src="images/python-course.jpg" alt="Data Science with Python" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-white">Data Science with Python</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-300">Category: Data Science</p>
-          <div class="flex items-center mt-2">
-            <img src="images/bob.jpg" alt="Bob Smith" class="w-8 h-8 rounded-full mr-2">
-            <span class="text-sm text-gray-700 dark:text-gray-200">Bob Smith</span>
-          </div>
-          <p class="mt-2 text-yellow-500">
-            ★ 4.7 <span class="text-gray-500 dark:text-gray-400">(15 hrs)</span>
-          </p>
-          <p class="text-gray-600 dark:text-gray-300 mt-2">Analyze data and build predictive models using Python.</p>
-          <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">$59.99</p>
-          <a href="course-detail.html?id=2" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
-        </div>
-      </div>
 
-      <!-- UI/UX Design Masterclass -->
-      <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-        <img src="images/design-course.jpg" alt="UI/UX Design Masterclass" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span>
-          <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-white">UI/UX Design Masterclass</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-300">Category: Design</p>
-          <div class="flex items-center mt-2">
-            <img src="images/charlie.jpg" alt="Charlie Brown" class="w-8 h-8 rounded-full mr-2">
-            <span class="text-sm text-gray-700 dark:text-gray-200">Charlie Brown</span>
-          </div>
-          <p class="mt-2 text-yellow-500">
-            ★ 4.9 <span class="text-gray-500 dark:text-gray-400">(10 hrs)</span>
-          </p>
-          <p class="text-gray-600 dark:text-gray-300 mt-2">Create stunning and user-friendly designs with Figma.</p>
-          <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">$45.00</p>
-          <a href="course-detail.html?id=3" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
-        </div>
-      </div>
 
             </div>
         </div>

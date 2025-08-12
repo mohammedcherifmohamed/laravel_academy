@@ -16,5 +16,11 @@ class Dashboard extends Model
         "instructor_id"
     ];
 
-    
+    public function category(){
+        return $this->belongsto(Category::class);
+    }
+    public function instructor(){
+        return $this->belongsto(instructor::class);
+    }
+
 }

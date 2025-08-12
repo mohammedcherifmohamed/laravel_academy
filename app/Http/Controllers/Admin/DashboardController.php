@@ -14,9 +14,11 @@ class DashboardController extends Controller
       // fetch instructors and categories
       $instructors = instructor::all();
       $categories = Category::all();
+      // join category and instructors tables
+      $courses = Course::with(['category', 'instructor'])->get();
+      // $courses = Course::all();
 
-
-         return view('Admin.dashboard',compact('instructors','categories'));
+         return view('Admin.dashboard',compact('instructors','categories',"courses"));
    }
 
    public function addCourse(Request $req){

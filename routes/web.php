@@ -6,13 +6,12 @@ use App\Http\Controllers\Admin\InstructorsController;
 use App\Http\Controllers\Admin\StudentsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\HomeController;
 
 
 
-Route::get('/', function () {
-    return view('home');
-});
 
+Route::get('/',[HomeController::class,"loadHome"])->name('home.load');
 Route::get('/admin/dashboard',[DashboardController::class,"loadDashboard"])->name('admin.dashboard');
 Route::post('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');
 // Route::get('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');

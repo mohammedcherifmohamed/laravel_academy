@@ -53,7 +53,7 @@
                                         @method('DELETE')
                                         <button class="text-red-600 hover:underline" type="submit"  >Delete</button>
                                     </form>
-                                        <button class="text-indigo-600 hover:underline" onclick="openEditModel({{$instructor->id}})" >Edit</button> |
+                                        <button class="text-indigo-600 hover:underline" onclick="openEditInstructorModel({{$instructor->id}})" >Edit</button> |
                                 </td>
                             </tr>
                             @empty 

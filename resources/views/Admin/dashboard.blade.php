@@ -75,15 +75,23 @@
           </thead>
           <tbody>
             <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
-              <td class="p-3 text-white">Web Development Bootcamp</td>
-              <td class="p-3 text-white">Programming</td>
-              <td class="p-3 text-white">$99</td>
-              <td class="p-3 text-white">Jane Smith</td>
+             @forelse($courses as $course)
+                <td class="p-3 text-white">{{$course->title}}</td>
+                <td class="p-3 text-white">{{$course->category->name}}</td>
+                <td class="p-3 text-white">{{$course->price}}</td>
+                <td class="p-3 text-white">{{$course->instructor->full_name}}</td>
+            
+
               <td class="p-3 text-white">
                 <button class="text-indigo-600 hover:underline">Edit</button> |
                 <button class="text-red-600 hover:underline">Delete</button>
               </td>
-            </tr>
+            </tr> 
+             @empty
+                <td colspan="5" class="p-3 text-center text-gray-500">
+                  No Courses Found
+                </td>
+              @endforelse
           </tbody>
         </table>
       </section>
