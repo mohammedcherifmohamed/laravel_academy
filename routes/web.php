@@ -14,6 +14,9 @@ Route::get('/', function () {
 });
 
 Route::get('/admin/dashboard',[DashboardController::class,"loadDashboard"])->name('admin.dashboard');
+Route::post('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');
+// Route::get('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');
+// Route::get('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');
 
 Route::get('/admin/Students',[StudentsController::class,"loadStudents"])->name('admin.Students');
 
@@ -32,6 +35,7 @@ Route::post('/admin/instructors/add',[InstructorsController::class,"AddInstructo
 Route::get('/admin/categories',[CategoryController::class,"loadCategories"])->name('admin.categories');
 Route::post('/admin/categories/add',[CategoryController::class,"addCategory"])->name('category.add');
 Route::delete('/admin/categories/delete/{id}',[CategoryController::class,"DeleteCategory"])->name('category.delete');
+
 Route::get('/admin/categories/edit/{id}',[CategoryController::class,"editCategory"])->name('category.edit');
 Route::patch('/admin/categories/update/{id}',[CategoryController::class,"UpdateCategory"])->name('category.update');
 

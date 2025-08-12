@@ -42,9 +42,15 @@ class CategoryController extends Controller
       public function editCategory($id){
             $category = Category::find($id);
             if($category){
-                  return view('Admin.editCategory', compact('category'));
+                  return response()->json([
+                        "success" => true ,
+                        "category" => $category
+                  ]) 
+                  ;
             } else {
-                  return redirect()->back()->with('Fail', 'Category not found!');
+                 return response()->json([
+                        "success" => false ,
+                  ]) ;
             }
       }
 
