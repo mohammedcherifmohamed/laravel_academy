@@ -125,13 +125,13 @@
       <!-- Title -->
       <div>
         <label class="block mb-1 text-white">Title</label>
-        <input name="title" type="text" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+        <input name="title" type="text" value="{{old('title')}}" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
       </div>
 
       <!-- Description -->
       <div>
         <label  class="block mb-1 text-white">Description</label>
-        <textarea name="description" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"></textarea>
+        <textarea name="description"  class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{old('description')}}</textarea>
       </div>
 
       <!-- Category -->
@@ -163,7 +163,7 @@
       <!-- Price -->
       <div>
         <label class="block mb-1 text-white">Price</label>
-        <input name="price" type="number" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+        <input name="price" type="number" value="{{old('price')}}" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
       </div>
 
       <!-- Buttons -->

@@ -24,7 +24,7 @@ class DashboardController extends Controller
    public function addCourse(Request $req){
       $req->validate([
             'title' => 'required|max:255',
-            'description' => 'required',
+            'description' => 'required|max:500',
             'category' => 'required|exists:category,id',
             'instructor' => 'required|exists:instructor,id',
             'price' => 'required|numeric|min:0',

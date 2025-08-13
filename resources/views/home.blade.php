@@ -2,6 +2,10 @@
 @section("title", "Home")
 
 @section('content')
+@php
+    use Illuminate\Support\Str;
+@endphp
+
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-20">
         <div class="container mx-auto px-4 text-center">
@@ -47,20 +51,21 @@
                @forelse($courses as $course)
                   <!-- JavaScript for Beginners -->
               <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-                <img src="images/js-course.jpg" alt="JavaScript for Beginners" class="w-full h-48 object-cover">
+                <img src="{{asset('storage/'.$course->image_path)}}" alt="JavaScript for Beginners" class="w-full h-48 object-cover">
                 <div class="p-4">
-                  <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span>
+                  {{-- <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span> --}}
                   <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{{$course->title}}</h3>
                   <p class="text-sm text-gray-600 dark:text-gray-300">{{$course->category->name}}</p>
                   <div class="flex items-center mt-2">
-                    <img src="images/alice.jpg" alt="Alice Johnson" class="w-8 h-8 rounded-full mr-2">
+                    <img src="{{$course->instructor->gender === "female" ? asset('icons/women.png') : asset('icons/man.png')}}" alt="Alice Johnson" class="w-8 h-8 rounded-full mr-2">
                     <span class="text-sm text-gray-700 dark:text-gray-200">{{$course->instructor->full_name}}</span>
                   </div>
                   <p class="mt-2 text-yellow-500">
                     ★ 4.8 <span class="text-gray-500 dark:text-gray-400">(12 hrs)</span>
                   </p>
-                  <p class="text-gray-600 dark:text-gray-300 mt-2">{{$course->description}}</p>
-                  <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">{{$course->price}}</p>
+                  {{-- display description with break lines as wrotten --}}
+                  <p class="text-gray-600 dark:text-gray-300 mt-2"> {!! nl2br(e(Str::limit($course->description,80," ..."))) !!}</p>
+                  <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">{{$course->price}} DZ</p>
                   <a href="course-detail.html?id=1" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
                 </div>
               </div>
