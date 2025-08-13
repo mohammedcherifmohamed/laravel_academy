@@ -61,7 +61,7 @@
       <section id="courses" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow mb-6 overflow-x-auto">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-xl font-bold text-indigo-600">Courses</h2>
-          <button onclick="openModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">+ Add Course</button>
+          <button onclick="openCourseModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">+ Add Course</button>
         </div>
         <table class="min-w-full border-collapse text-sm">
           <thead>
@@ -82,9 +82,18 @@
                 <td class="p-3 text-white">{{$course->instructor->full_name}}</td>
             
 
-              <td class="p-3 text-white">
-                <button class="text-indigo-600 hover:underline">Edit</button> |
-                <button class="text-red-600 hover:underline">Delete</button>
+              <td class="flex p-3 text-white">
+                <button type="button" onclick="openEditCourseModel({{$course->id}})" class="text-indigo-600 px-3 hover:underline">Edit</button> |
+                <form
+                   onsubmit="return confirm('Are you sure you want to delete this course?');" 
+                   action="{{route('course.delete',$course->id)}}"
+                    method="POST"
+                  class="px-3"
+                  >
+                  @csrf
+                  @method('DELETE')
+                  <button class="text-red-600 hover:underline">Delete</button>
+                </form>
               </td>
             </tr> 
              @empty
@@ -105,9 +114,9 @@
   <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-lg shadow-lg">
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-lg font-bold text-indigo-600">Add New Course</h2>
-      <button onclick="closeModal()" class="text-gray-500 hover:text-red-500">&times;</button>
+      <button onclick="closeCourseModal()" class="text-gray-500 hover:text-red-500">&times;</button>
     </div>
-    <form class="space-y-4" action="{{route('course.add')}}" method="POST" enctype="multipart/form-data">
+    <form id="addCourseForm" class="space-y-4" action="{{route('course.add')}}" method="POST" enctype="multipart/form-data">
      @csrf
       <!-- Image Picker -->
       <div>
@@ -131,7 +140,7 @@
       <!-- Description -->
       <div>
         <label  class="block mb-1 text-white">Description</label>
-        <textarea name="description"  class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{old('description')}}</textarea>
+        <textarea id="courseDescription" name="description"  class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{old('description')}}</textarea>
       </div>
 
       <!-- Category -->
@@ -168,7 +177,7 @@
 
       <!-- Buttons -->
       <div class="flex justify-end gap-2">
-        <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-gray-700">Cancel</button>
+        <button type="button" onclick="closeCourseModal()" class="px-4 py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-gray-700">Cancel</button>
         <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Save</button>
       </div>
     </form>

@@ -56,4 +56,82 @@ class DashboardController extends Controller
 
 
    }
+
+   public function deleteCourse($id){
+      $course = Course::find($id);
+      if($course){
+            $course->delete();
+            return redirect()->back()->with('success', 'Course deleted successfully!');
+      } else {
+            return redirect()->back()->with('Fail', 'Course not found!');
+      }
+   }
+
+   public function editCourse($id){
+      $course = Course::with(['category','instructor'])->find($id);
+      if($course){
+            $instructors = Instructor::all();
+            $categories = Category::all();
+            return response()->json([
+                  "success" => true ,
+                  "course"=> $course,
+                  "instructors" => $instructors,
+                  "categories" => $categories
+            ]);
+      } else {
+            return response()->json([
+                  "success" => false ,
+            ]);
+      }
+   }
+
+
+   public function updateCourse(Request $req , $id){
+
+      $req->validate([
+            'title' => 'required|max:255',
+            'description' => 'required|max:500',
+            'category' => 'required|exists:category,id',
+            'instructor' => 'required|exists:instructor,id',
+            'price' => 'required|numeric|min:0',
+            'image' => 'nullable|image|max:2048'
+      ]);
+
+      $course = Course::find($id);
+      if(!$course){
+            return redirect()->back()->with('Fail', 'Course not found!');
+      }
+
+      if($req->hasFile('image')){
+            $imagePath = $req->file('image')->store('courses', 'public');
+      } else {
+            $imagePath = $course->image_path; 
+      }
+
+      $course->update([
+            'title' => $req->title,
+            'description' => $req->description,
+            'category_id' => $req->category,
+            'instructor_id' => $req->instructor,
+            'price' => $req->price,
+            'image_path' => $imagePath ?? $course->image_path
+      ]);
+
+      return redirect()->back()->with('success', 'Course updated successfully!');
+
+
+   }
+
+      public function viewCourse($id){
+            $course = Course::with(['category', 'instructor'])->find($id);
+
+            
+            return view('Course-detail',compact('course'));
+
+            
+
+      }
+
+
+
 }

@@ -14,8 +14,14 @@ use App\Http\Controllers\HomeController;
 Route::get('/',[HomeController::class,"loadHome"])->name('home.load');
 Route::get('/admin/dashboard',[DashboardController::class,"loadDashboard"])->name('admin.dashboard');
 Route::post('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');
-// Route::get('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');
-// Route::get('/admin/courses/add',[DashboardController::class,"addCourse"])->name('course.add');
+Route::delete('/admin/courses/delete/{id}',[DashboardController::class,"deleteCourse"])->name('course.delete');
+Route::get('/admin/courses/edit/{id}',[DashboardController::class,"editCourse"])->name('course.edit');
+Route::patch('/admin/courses/update/{id}',[DashboardController::class,"updateCourse"])->name('course.update');
+
+
+Route::get('/home/courses/view/{id}',[DashboardController::class,"viewCourse"])->name('course.view');
+
+
 
 Route::get('/admin/Students',[StudentsController::class,"loadStudents"])->name('admin.Students');
 

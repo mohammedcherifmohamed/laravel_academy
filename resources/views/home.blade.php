@@ -5,7 +5,7 @@
 @php
     use Illuminate\Support\Str;
 @endphp
-
+    @include('includes.nav')
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-20">
         <div class="container mx-auto px-4 text-center">
@@ -66,7 +66,7 @@
                   {{-- display description with break lines as wrotten --}}
                   <p class="text-gray-600 dark:text-gray-300 mt-2"> {!! nl2br(e(Str::limit($course->description,80," ..."))) !!}</p>
                   <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">{{$course->price}} DZ</p>
-                  <a href="course-detail.html?id=1" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
+                  <a href="{{route('course.view',$course->id)}}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
                 </div>
               </div>
                @empty

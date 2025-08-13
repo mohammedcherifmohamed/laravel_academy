@@ -52,12 +52,6 @@ window.openEditInstructorModel = function(id) {
 
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOM fully loaded and parsed');
-
-});
-
 window.openInstructorModal = function () {
     document.getElementById('addInstructorModal').classList.remove('hidden');
 }
