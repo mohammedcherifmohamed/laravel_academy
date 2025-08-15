@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Dashboard as Course;
+use App\Models\Course_Overview;
 use App\Models\Instructor;
 use App\Models\Category;
 
@@ -15,20 +16,27 @@ class DashboardController extends Controller
       $instructors = instructor::all();
       $categories = Category::all();
       // join category and instructors tables
-      $courses = Course::with(['category', 'instructor'])->get();
+      $courses = Course::with(['category', 'instructor',"overview"])->get();
       // $courses = Course::all();
 
          return view('Admin.dashboard',compact('instructors','categories',"courses"));
    }
 
    public function addCourse(Request $req){
+
       $req->validate([
             'title' => 'required|max:255',
             'description' => 'required|max:500',
             'category' => 'required|exists:category,id',
             'instructor' => 'required|exists:instructor,id',
             'price' => 'required|numeric|min:0',
-            'image' => 'required|image|max:2048'
+            'image' => 'required|image|max:2048',
+            "duration" => "nullable|numeric|min:0",
+            "old_price" => "nullable|numeric|min:0",
+            "requirements" => "nullable|string|max:500",
+            "lessons" => "nullable|numeric|min:0",
+            "will_learn" => "nullable|string|max:500",
+            "level" => "nullable|in:beginner,intermediate,advanced",
       ]);
 
       // Handle file upload
@@ -47,8 +55,19 @@ class DashboardController extends Controller
             'image_path' => $imagePath 
       ]);
 
+      $res2 = course_overview::create([
+            "duration" => $req->duration,
+            "old_price" => $req->old_price,
+            "requirements" => $req->requirements,
+            "will_learn" => $req->will_learn,
+            "lessons" => $req->lessons,
+            "level" => $req->level,
+            "course_id" => $res->id 
 
-      if($res){
+      ]);
+
+
+      if($res && $res2){
             return redirect()->back()->with('success', 'Course added successfully!');
       } else {
             return redirect()->back()->with('Fail', 'Failed to add course!');
@@ -123,7 +142,7 @@ class DashboardController extends Controller
    }
 
       public function viewCourse($id){
-            $course = Course::with(['category', 'instructor'])->find($id);
+            $course = Course::with(['category', 'instructor',"overview"])->find($id);
 
             
             return view('Course-detail',compact('course'));
@@ -132,6 +151,42 @@ class DashboardController extends Controller
 
       }
 
+      public function getAllCourses(){
+            $courses = Course::with(['category', 'instructor',"overview"])->get();
+            $categories = Category::all();
+            return view('Courses',compact('courses','categories'));
+      }
 
+    public function FilterCourses(Request $req) {
+            $category_id = $req->query('category');
+            $course_name = $req->query('search');
+            $level       = $req->query('level');
+
+            $query = Course::with(['category', 'instructor', 'overview']);
+
+            // Filter by category
+            if ($category_id !== null && $category_id !== '0') {
+                  $query->where('category_id', $category_id);
+            }
+
+            // Filter by course title
+            if (!empty($course_name)) {
+                  $query->where('title', 'like', '%' . $course_name . '%');
+            }
+
+            // Filter by level (if level is inside course_overview table)
+            if (in_array($level, ['beginner', 'intermediate', 'advanced'])) {
+                  $query->whereHas('overview', function($q) use ($level) {
+                        $q->where('level', $level);
+                  });
+            }
+
+            $courses = $query->get();
+
+            return response()->json([
+                  "success" => true,
+                  "courses" => $courses
+            ]);
+      }
 
 }

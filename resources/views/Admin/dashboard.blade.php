@@ -111,78 +111,147 @@
 
 <!-- Add Course Modal -->
 <div id="addCourseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-lg shadow-lg">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-lg font-bold text-indigo-600">Add New Course</h2>
-      <button onclick="closeCourseModal()" class="text-gray-500 hover:text-red-500">&times;</button>
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-4xl shadow-lg">
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center mb-6 border-b pb-3">
+      <h2 class="text-xl font-bold text-indigo-600">Add New Course</h2>
+      <button onclick="closeCourseModal()" class="text-gray-500 hover:text-red-500 text-2xl leading-none">&times;</button>
     </div>
-    <form id="addCourseForm" class="space-y-4" action="{{route('course.add')}}" method="POST" enctype="multipart/form-data">
-     @csrf
-      <!-- Image Picker -->
-      <div>
-        <label class="block mb-1 text-white">Image</label>
-        <input 
-          name="image"
-          type="file" 
-          accept="image/*" 
-          class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-          onchange="previewImage(event)">
-        <label class="block mt-2 text-sm text-gray-500">Preview:</label>
-        <img  id="imagePreview" class="mt-2  h-32 object-cover rounded border hidden">
-      </div>
 
-      <!-- Title -->
-      <div>
-        <label class="block mb-1 text-white">Title</label>
-        <input name="title" type="text" value="{{old('title')}}" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
-      </div>
+    <form id="addCourseForm" class="space-y-6" action="{{ route('course.add') }}" method="POST" enctype="multipart/form-data">
+      @csrf
 
-      <!-- Description -->
-      <div>
-        <label  class="block mb-1 text-white">Description</label>
-        <textarea id="courseDescription" name="description"  class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{old('description')}}</textarea>
-      </div>
-
-      <!-- Category -->
-      <div>
-        <label class="block mb-1 text-white">Category</label>
-        <select name="category" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
-          @forelse($categories as $category)
-            <option value="{{$category->id}}">{{$category->name}}</option>
-          @empty
-            <option value="0">No Categories Available</option>
-          @endforelse
-              
-        </select>
-      </div>
-
-      <!-- Instructor -->
-      <div>
-        <label class="block mb-1 text-white">Instructor</label>
-        <select name="instructor" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
-          @forelse($instructors as $instructor)
-            <option value="{{$instructor->id}}">{{$instructor->full_name}}</option>
-          @empty
-            <option value="0">No Instructors Available</option>
-          @endforelse
+      <!-- 2 Column Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
-        </select>
-      </div>
+        <!-- Left Column -->
+        <div class="space-y-4">
+          <!-- Image Picker -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Image</label>
+            <input name="image" type="file" accept="image/*" 
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" 
+              onchange="previewImage(event)">
+            <p class="text-sm text-gray-500 mt-1">Preview:</p>
+            <img id="imagePreview" class="mt-2 h-32 w-full object-cover rounded border hidden">
+          </div>
 
-      <!-- Price -->
-      <div>
-        <label class="block mb-1 text-white">Price</label>
-        <input name="price" type="number" value="{{old('price')}}" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+          <!-- Title -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Title</label>
+            <input name="title" type="text" value="{{ old('title') }}" 
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Description</label>
+            <textarea id="courseDescription" name="description" rows="4"
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{ old('description') }}</textarea>
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Category</label>
+            <select name="category" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+              @forelse($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+              @empty
+                <option value="0">No Categories Available</option>
+              @endforelse
+            </select>
+          </div>
+
+          <!-- Instructor -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Instructor</label>
+            <select name="instructor" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+              @forelse($instructors as $instructor)
+                <option value="{{ $instructor->id }}">{{ $instructor->full_name }}</option>
+              @empty
+                <option value="0">No Instructors Available</option>
+              @endforelse
+            </select>
+          </div>
+
+          <!-- Price -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Price</label>
+            <input name="price" type="number" value="{{ old('price') }}" 
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="space-y-4">
+          <span class="text-red-800 text-bold text-l italic" >This section is not mandatory, but it is recommended that the student fill it out with sufficient information.</span>
+          <!-- Duration -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Duration</label>
+            <input name="duration" type="number" value="{{ old('duration') }}" 
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+          </div>
+
+          <!-- Lessons -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Lessons</label>
+            <input name="lessons" type="number" value="{{ old('lessons') }}" 
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+          </div>
+
+          <!-- Level -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Level</label>
+            <select name="level" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+              <option value="">Select Level</option>
+              <option value="beginner" {{ old('level') == 'beginner' ? 'selected' : '' }}>Beginner</option>
+              <option value="intermediate" {{ old('level') == 'intermediate' ? 'selected' : '' }}>Intermediate</option>
+              <option value="advanced" {{ old('level') == 'advanced' ? 'selected' : '' }}>Advanced</option>
+            </select>
+          </div>
+
+          <!-- Old Price -->
+          <div>
+            <div class="flex" >
+              <label class="block mb-1 font-semibold text-white">Old Price </label>
+              <span class="text-red-800 text-bold text-l italic" > (if ther is discount)</span>
+            </div>
+            
+            <input name="old_price" type="number" value="{{ old('old_price') }}" 
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+          </div>
+
+          <!-- Requirements -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">Requirements</label>
+            <textarea id="requirements" name="requirements" rows="4"
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{ old('description') }}</textarea>
+          </div>
+          <!-- what will learn -->
+          <div>
+            <label class="block mb-1 font-semibold text-white">what will learn</label>
+            <textarea id="will_learn" name="will_learn" rows="4"
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{ old('description') }}</textarea>
+          </div>
+
+        </div>
       </div>
 
       <!-- Buttons -->
-      <div class="flex justify-end gap-2">
-        <button type="button" onclick="closeCourseModal()" class="px-4 py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-gray-700">Cancel</button>
-        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Save</button>
+      <div class="flex justify-end gap-3 border-t pt-4">
+        <button type="button" onclick="closeCourseModal()" 
+          class="px-4 py-2 rounded-lg border dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+          Cancel
+        </button>
+        <button type="submit" 
+          class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+          Save
+        </button>
       </div>
     </form>
   </div>
 </div>
+
 
 
 @endsection

@@ -51,22 +51,28 @@
                     </div>
                     <div class="flex justify-between items-center mb-4">
                         <span id="coursePrice" class="text-2xl font-bold text-gray-800 dark:text-white">{{$course->price}} DZ</span>
-                        <span class="text-sm text-gray-500 dark:text-gray-400 line-through">{{$course->course_overview->old_price ?? ""}}</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400 line-through">{{$course->overview->old_price ?? ""}} </span>
                     </div>
                     <button class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 mb-3">Enroll Now</button>
                     <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-600 dark:text-gray-300">Duration:</span>
-                            <span id="courseDuration" class="font-medium text-gray-800 dark:text-white">10 hours</span>
-                        </div>
+                        @if($course->overview && $course->overview->duration)
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600 dark:text-gray-300">Duration:</span>
+                                <span id="courseDuration" class="font-medium text-gray-800 dark:text-white">{{$course->overview->duration ?? ""}} h</span>
+                            </div>
+                        @endif
+                         @if($course->overview && $course->overview->lessons)
                         <div class="flex justify-between mb-2">
                             <span class="text-gray-600 dark:text-gray-300">Lessons:</span>
-                            <span id="courseLessons" class="font-medium text-gray-800 dark:text-white">45</span>
+                            <span id="courseLessons" class="font-medium text-gray-800 dark:text-white">{{$course->overview->lessons ?? ""}}</span>
                         </div>
+                            @endif
+                         @if($course->overview && $course->overview->level)
                         <div class="flex justify-between">
                             <span class="text-gray-600 dark:text-gray-300">Level:</span>
-                            <span id="courseLevel" class="font-medium text-gray-800 dark:text-white">Intermediate</span>
+                            <span id="courseLevel" class="font-medium text-gray-800 dark:text-white">{{$course->overview->level ?? ""}}</span>
                         </div>
+                            @endif
                     </div>
                 </div>
             </div>
@@ -80,72 +86,48 @@
                 <!-- Main Content -->
                 <div class="lg:w-2/3">
                     <!-- Course Tabs -->
-                    <div class="border-b border-gray-200 dark:border-gray-700 mb-8">
-                        <nav class="flex space-x-8">
-                            <button class="py-4 px-1 border-b-2 font-medium text-sm border-indigo-600 text-indigo-600 dark:text-indigo-400">Overview</button>
-                        </nav>
-                    </div>
-
-                    <!-- Course Description -->
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">About This Course</h3>
-                        <div id="courseFullDescription" class="prose dark:prose-invert max-w-none">
-                            <p>Loading full description...</p>
+                    @if($course->overview)
+                        <div class="border-b border-gray-200 dark:border-gray-700 mb-8">
+                            <nav class="flex space-x-8">
+                                <button class="py-4 px-1 border-b-2 font-medium text-sm border-indigo-600 text-indigo-600 dark:text-indigo-400">Overview</button>
+                            </nav>
                         </div>
-                    </div>
+                    @endif
 
                     <!-- What You'll Learn -->
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">What You'll Learn</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-300">Build complete web applications from scratch</span>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-300">Understand modern JavaScript frameworks</span>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-300">Implement authentication and authorization</span>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-300">Deploy applications to production</span>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-300">Work with databases and APIs</span>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-300">Write clean, maintainable code</span>
+                    @if($course->overview && $course->overview->will_learn)
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">What You'll Learn</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-gray-700 dark:text-gray-300">{!! nl2br(e($course->overview->will_learn ?? ""))!!}</span>
+                                </div>
+                                
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Course Curriculum -->
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Course Curriculum</h3>
-                        <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                            <!-- Course sections will be populated by JavaScript -->
-                            <div id="courseSections" class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <!-- Sections and lessons will be added here -->
+                    @endif
+                  
+                    
+                    @if($course->overview && $course->overview->description)
+                        <!-- Course Curriculum -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Course Curriculum</h3>
+                            <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                                <!-- Course sections will be populated by JavaScript -->
+                                <div id="courseSections" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    <!-- Sections and lessons will be added here -->
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Requirements -->
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Requirements</h3>
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
-                            <li>Basic understanding of HTML and CSS</li>
-                            <li>Familiarity with any programming language</li>
-                            <li>A computer with internet access</li>
-                            <li>Willingness to learn and practice</li>
-                        </ul>
-                    </div>
+                        <!-- Requirements -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Requirements</h3>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                                <li>{{$course->overview->requirements ?? ""}}</li>
+                            </ul>
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Sidebar -->

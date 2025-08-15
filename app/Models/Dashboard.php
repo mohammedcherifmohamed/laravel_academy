@@ -17,10 +17,14 @@ class Dashboard extends Model
     ];
 
     public function category(){
-        return $this->belongsto(Category::class);
+        return $this->belongsTo(Category::class);
     }
     public function instructor(){
-        return $this->belongsto(instructor::class);
+        return $this->belongsTo(instructor::class);
     }
-
+    public function overview()
+    {
+        return $this->hasOne(Course_Overview::class, 'course_id', 'id');
+    }
 }
+

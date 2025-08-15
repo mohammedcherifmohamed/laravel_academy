@@ -17,6 +17,9 @@ Route::post('/admin/courses/add',[DashboardController::class,"addCourse"])->name
 Route::delete('/admin/courses/delete/{id}',[DashboardController::class,"deleteCourse"])->name('course.delete');
 Route::get('/admin/courses/edit/{id}',[DashboardController::class,"editCourse"])->name('course.edit');
 Route::patch('/admin/courses/update/{id}',[DashboardController::class,"updateCourse"])->name('course.update');
+Route::get('/courses/all/',[DashboardController::class,"getAllCourses"])->name('courses.more');
+
+Route::get('/courses/filter',[DashboardController::class,"FilterCourses"])->name('courses.filter');
 
 
 Route::get('/home/courses/view/{id}',[DashboardController::class,"viewCourse"])->name('course.view');

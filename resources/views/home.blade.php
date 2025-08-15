@@ -44,7 +44,7 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Featured Courses</h2>
-                <a href="courses.html" class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">View All</a>
+                <a href="{{route('courses.more')}}" class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">View All</a>
             </div>
             <div id="courseList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Featured courses will be populated by JavaScript -->
@@ -61,7 +61,7 @@
                     <span class="text-sm text-gray-700 dark:text-gray-200">{{$course->instructor->full_name}}</span>
                   </div>
                   <p class="mt-2 text-yellow-500">
-                    ★ 4.8 <span class="text-gray-500 dark:text-gray-400">(12 hrs)</span>
+                    <span class="text-gray-500 dark:text-gray-400">({{$course->overview->duration ?? "N/H"}} hrs)</span>
                   </p>
                   {{-- display description with break lines as wrotten --}}
                   <p class="text-gray-600 dark:text-gray-300 mt-2"> {!! nl2br(e(Str::limit($course->description,80," ..."))) !!}</p>
