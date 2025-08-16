@@ -55,45 +55,33 @@
             <div id="courseList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Courses will be populated by JavaScript -->
                @forelse($courses as $course)
-              <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-                <img src="{{asset('storage/'.$course->image_path)}}" alt="JavaScript for Beginners" class="w-full h-48 object-cover">
-                <div class="p-4">
-                  {{-- <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span> --}}
-                  <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{{$course->title}}</h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-300">{{$course->category->name}}</p>
-                  <div class="flex items-center mt-2">
-                    <img src="{{$course->instructor->gender === "female" ? asset('icons/women.png') : asset('icons/man.png')}}" alt="Alice Johnson" class="w-8 h-8 rounded-full mr-2">
-                    <span class="text-sm text-gray-700 dark:text-gray-200">{{$course->instructor->full_name}}</span>
-                  </div>
-                  <p class="mt-2 text-yellow-500">
-                    <span class="text-gray-500 dark:text-gray-400">({{$course->overview->duration ?? "N/H"}} hrs)</span>
-                  </p>
-                  {{-- display description with break lines as wrotten --}}
-                  <p class="text-gray-600 dark:text-gray-300 mt-2"> {!! nl2br(e(Str::limit($course->description,80," ..."))) !!}</p>
-                  <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">{{$course->price}} DZ</p>
-                  <a href="{{route('course.view',$course->id)}}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
-                </div>
-              </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <img src="{{asset('storage/'.$course->image_path)}}" alt="JavaScript for Beginners" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                        {{-- <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span> --}}
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{{$course->title}}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">{{$course->category->name}}</p>
+                        <div class="flex items-center mt-2">
+                            <img src="{{$course->instructor->gender === "female" ? asset('icons/women.png') : asset('icons/man.png')}}" alt="Alice Johnson" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-700 dark:text-gray-200">{{$course->instructor->full_name}}</span>
+                        </div>
+                        <p class="mt-2 text-yellow-500">
+                            <span class="text-gray-500 dark:text-gray-400">({{$course->overview->duration ?? "N/H"}} hrs)</span>
+                        </p>
+                        {{-- display description with break lines as wrotten --}}
+                        <p class="text-gray-600 dark:text-gray-300 mt-2"> {!! nl2br(e(Str::limit($course->description,80," ..."))) !!}</p>
+                        <p class="text-xl font-bold mt-4 text-gray-800 dark:text-white">{{$course->price}} DZ</p>
+                        <a href="{{route('course.view',$course->id)}}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Course</a>
+                        </div>
+                    </div>
                @empty
                 <h1>No Courses Found</h1>
                @endforelse
             </div>
             <!-- Pagination -->
-            <div class="mt-12 flex justify-center">
-                <nav class="flex items-center space-x-2">
-                    <button class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="px-3 py-1 rounded-md bg-indigo-600 text-white">1</button>
-                    <button class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white">2</button>
-                    <button class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white">3</button>
-                    <span class="px-2 text-gray-500">...</span>
-                    <button class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white">10</button>
-                    <button class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </nav>
-            </div>
+               <div class="mt-12 flex justify-center">
+                    {{ $courses->links('pagination::tailwind') }}
+                </div>
         </div>
     </section>
 

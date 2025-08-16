@@ -87,7 +87,7 @@ class DashboardController extends Controller
    }
 
    public function editCourse($id){
-      $course = Course::with(['category','instructor'])->find($id);
+      $course = Course::with(['category','instructor','overview'])->find($id);
       if($course){
             $instructors = Instructor::all();
             $categories = Category::all();
@@ -108,12 +108,18 @@ class DashboardController extends Controller
    public function updateCourse(Request $req , $id){
 
       $req->validate([
-            'title' => 'required|max:255',
+           'title' => 'required|max:255',
             'description' => 'required|max:500',
             'category' => 'required|exists:category,id',
             'instructor' => 'required|exists:instructor,id',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'image|max:2048',
+            "duration" => "nullable|numeric|min:0",
+            "old_price" => "nullable|numeric|min:0",
+            "requirements" => "nullable|string|max:500",
+            "lessons" => "nullable|numeric|min:0",
+            "will_learn" => "nullable|string|max:500",
+            "level" => "nullable|in:beginner,intermediate,advanced",
       ]);
 
       $course = Course::find($id);
@@ -127,7 +133,7 @@ class DashboardController extends Controller
             $imagePath = $course->image_path; 
       }
 
-      $course->update([
+      $res1 = $course->update([
             'title' => $req->title,
             'description' => $req->description,
             'category_id' => $req->category,
@@ -135,6 +141,19 @@ class DashboardController extends Controller
             'price' => $req->price,
             'image_path' => $imagePath ?? $course->image_path
       ]);
+
+      $res2 = Course_Overview::where('course_id', $id)->update([
+            "duration" => $req->duration,
+            "old_price" => $req->old_price,
+            "requirements" => $req->requirements,
+            "will_learn" => $req->will_learn,
+            "lessons" => $req->lessons,
+            "level" => $req->level
+      ]);
+
+      if(!$res1 || !$res2){
+            return redirect()->back()->with('Fail', 'Failed to update course!');
+      }
 
       return redirect()->back()->with('success', 'Course updated successfully!');
 
@@ -152,12 +171,12 @@ class DashboardController extends Controller
       }
 
       public function getAllCourses(){
-            $courses = Course::with(['category', 'instructor',"overview"])->get();
+            $courses = Course::with(['category', 'instructor',"overview"])->paginate(5);
             $categories = Category::all();
             return view('Courses',compact('courses','categories'));
       }
 
-    public function FilterCourses(Request $req) {
+      public function FilterCourses(Request $req) {
             $category_id = $req->query('category');
             $course_name = $req->query('search');
             $level       = $req->query('level');

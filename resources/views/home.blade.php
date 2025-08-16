@@ -44,7 +44,6 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Featured Courses</h2>
-                <a href="{{route('courses.more')}}" class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">View All</a>
             </div>
             <div id="courseList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Featured courses will be populated by JavaScript -->
@@ -72,10 +71,11 @@
                @empty
                 <h1>No Courses Found</h1>
                @endforelse
-      
-
-
-
+            </div>
+            <div class="flex justify-center items-center mb-8">
+                <a href="{{ route('courses.more')}}" 
+                       class="mt-8 inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-600"
+                >View All Courses</a>
             </div>
         </div>
     </section>

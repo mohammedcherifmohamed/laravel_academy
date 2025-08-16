@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         // Logic to load the home page
         // load courses 
-       $courses = Course::with(['category', 'instructor'])->get();
+       $courses = Course::with(['category', 'instructor'])->take(6)->get();
         $categories = Category::all();
 
         return view('home',compact('courses',"categories"));

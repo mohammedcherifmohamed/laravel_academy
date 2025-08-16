@@ -7,8 +7,15 @@ use App\Http\Controllers\Admin\StudentsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 
+Route::get('/login',[LoginController::class,"LoadLogin"])->name('login.load');
+Route::post('/login/post',[LoginController::class,"CheckLogin"])->name('login.post');
+
+Route::get('/register',[RegisterController::class,"LoadRegister"])->name('register.load');
+Route::post('/register/post',[RegisterController::class,"registerPost"])->name('register.post');
 
 
 Route::get('/',[HomeController::class,"loadHome"])->name('home.load');
