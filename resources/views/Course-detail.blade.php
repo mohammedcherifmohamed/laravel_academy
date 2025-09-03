@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Detail - LearnHub</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-    <!-- Navigation -->
-    @include('includes.nav')
+@extends("Layout.Main")
+@section("title", "Course-details")
 
+@section('content')
+
+@include('includes.nav')
     <!-- Course Banner -->
     <section class="bg-gray-800 text-white">
         <div class="container mx-auto px-4 py-12">
@@ -53,7 +42,7 @@
                         <span id="coursePrice" class="text-2xl font-bold text-gray-800 dark:text-white">{{$course->price}} DZ</span>
                         <span class="text-sm text-gray-500 dark:text-gray-400 line-through">{{$course->overview->old_price ?? ""}} </span>
                     </div>
-                    <button class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 mb-3">Enroll Now</button>
+                    <button onclick="openModal() " class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 mb-3">Enroll Now</button>
                     <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
                         @if($course->overview && $course->overview->duration)
                             <div class="flex justify-between mb-2">
@@ -239,12 +228,59 @@
             </div>
         </div>
     </section>
+    <!-- Enroll Modal -->
+    <div id="enrollModal" class="fixed inset-0 flex items-center justify-center bg-black/60 
+    hidden z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transform transition-all scale-95 " id="modalContent">
+        
+        <!-- Close Button -->
+        <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
+             <i class="fas fa-times text-xl"></i>
+        </button>
 
-    <!-- Footer (same as index.html) -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
+        <h2 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Course Enrollment</h2>
+    <form action="">
+
+        <!-- User Name -->
+        <div class="mb-4">
+            <label class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Your Name</label>
+            <input type="text" id="studentName" placeholder="Enter your full name"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none dark:bg-gray-700 dark:text-white">
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-4">
+            <label class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Phone Number</label>
+            <input type="text" id="studentPhone" placeholder="+213 6xx xx xx xx"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none dark:bg-gray-700 dark:text-white">
+        </div>
+        
+        <!-- Course Info -->
+        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
+            <h3 class="font-semibold text-gray-900 dark:text-white">Course:</h3>
+            <p id="modalCourseTitle" class="text-gray-700 dark:text-gray-300"></p>
+        </div>
+        
+        <!-- Total Price -->
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="font-semibold text-gray-900 dark:text-white">Total Price:</h3>
+            <p id="modalCoursePrice" class="text-indigo-600 font-bold text-2xl"></p>
+        </div>
+        
+        <!-- Confirm Button -->
+        <button class="w-full bg-indigo-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-indigo-700 transition">
+            Confirm Enrollment
+        </button>
+    </form>
+    </div>
+</div>
+
+
+<!-- Footer (same as index.html) -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
                     <h3 class="text-xl font-bold mb-4">LearnHub</h3>
                     <p class="text-gray-400">Empowering learners to achieve their goals through accessible, high-quality education.</p>
                 </div>
@@ -285,5 +321,4 @@
 
     <!-- Scripts -->
     <script src="app.js"></script>
-</body>
-</html>
+@endsection

@@ -3,3 +3,4 @@ import './dashboard';
 import './Category';
 import './Course';
 import './allCourses';
+import './course-detail';

@@ -30,8 +30,7 @@ class RegisterController extends Controller
         try{
 
             $result = User::create([
-                "name" => $req->name ,
-                "FamillyName" => $req->FamillyName ,
+                "name" => $req->name . " " . $req->FamillyName,
                 "email" => $req->email ,
                 "password" => Hash::make($req->password),
                 "gender" => $req->gender ,

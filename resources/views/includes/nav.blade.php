@@ -18,8 +18,22 @@
                     <i class="fas fa-moon dark:hidden"></i>
                     <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
                 </button>
-                <a href="login.html" class="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-medium hover:bg-indigo-50 dark:hover:bg-gray-700 rounded-lg">Login</a>
-                <a href="register.html" class="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 hidden md:block">Register</a>
+                @if (Auth::check())
+                    <span class="flex items-center space-x-2">
+                        <h3 class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">
+                            {{ Auth::user()->name . ' ' . Auth::user()->familly_name }}
+                        </h3>
+                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="text-red-600  font-medium">Logout</button>
+                        </form>
+                    </span>
+                @else
+                
+                <a href="{{route('login.load')}}" class="px-4 py-2 text-indigo-600 dark:text-indigo-400 font-medium hover:bg-indigo-50 dark:hover:bg-gray-700 rounded-lg">Login</a>
+                <a href="{{route('register.load')}}" class="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 hidden md:block">Register</a>
+                @endif
+
                 <button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
                     <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
                 </button>
