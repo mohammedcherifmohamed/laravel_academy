@@ -21,7 +21,7 @@ class LoginController extends Controller
         $credentials = $req->only('email','password');
         $remember = $req->filled('remember') ;
         if(Auth::attempt($credentials,$remember)){
-            return redirect()->route('home.load') ;     
+            return redirect()->intended('/') ;     
         }else{
             
             return redirect()->back()->with('error_login','Email or User Name') ;

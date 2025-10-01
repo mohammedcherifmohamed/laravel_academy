@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\EnrollController;
 
 
 Route::get('/login',[LoginController::class,"LoadLogin"])->name('login.load');
@@ -33,7 +34,10 @@ Route::get('/courses/filter',[DashboardController::class,"FilterCourses"])->name
 
 Route::get('/home/courses/view/{id}',[DashboardController::class,"viewCourse"])->name('course.view');
 
-
+Route::prefix("enroll")->middleware('IsLoggedInsStudent')->group(function(){
+    Route::post('/{id}',[EnrollController::class,"enrollCourse"])->name('course.enroll');
+    
+});
 
 Route::get('/admin/Students',[StudentsController::class,"loadStudents"])->name('admin.Students');
 

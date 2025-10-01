@@ -239,8 +239,8 @@
         </button>
 
         <h2 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Course Enrollment</h2>
-    <form action="">
-
+    <form action="{{route('course.enroll', ['id' => $course->id])}}" method="POST" class="space-y-6">
+        @csrf
         <!-- User Name -->
         <div class="mb-4">
             <label class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Your Name</label>

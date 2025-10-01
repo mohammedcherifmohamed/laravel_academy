@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
       enrollModal.classList.add('hidden'); 
     }); 
   }
+
+  // fetch course data to fill them in the model
+
+
+
+
+
 });
 
 
