@@ -1,8 +1,10 @@
+console.log('all courses  script loaded');
+
 document.addEventListener('DOMContentLoaded', function() { 
   const categoryFilter = document.getElementById('categoryFilter'); 
     const courseSearch = document.getElementById('courseSearch');
     const levelFilter = document.getElementById('levelFilter');
-
+    if(categoryFilter && courseSearch && levelFilter){
     categoryFilter.addEventListener('change', function() {
         filterCourses(); 
     });
@@ -12,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     levelFilter.addEventListener('change', function() {
         filterCourses(); 
     });
+    }
 }); 
 
 window.filterCourses = function() {

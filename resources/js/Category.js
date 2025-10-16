@@ -1,3 +1,4 @@
+console.log('category script loaded');
 
 window.openEditModel = function(id) {
     console.log("Editing Category:", id);

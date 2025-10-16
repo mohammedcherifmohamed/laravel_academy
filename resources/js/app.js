@@ -1,3 +1,5 @@
+console.log('app script loaded');
+
 import './bootstrap';
 import './dashboard';
 import './Category';

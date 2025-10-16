@@ -1,3 +1,5 @@
+console.log('course details script loaded');
+
 document.addEventListener('DOMContentLoaded', function() { 
   const enrollModal = document.getElementById('enrollModal'); 
   const closebtn = document.getElementById('closeModal'); 

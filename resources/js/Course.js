@@ -1,5 +1,5 @@
 
-console.log('Dashboard script loaded');
+console.log('Dashboard1 script loaded');
 
 window.openEditCourseModel = function(id) {
     console.log("Editing instructor:", id);
