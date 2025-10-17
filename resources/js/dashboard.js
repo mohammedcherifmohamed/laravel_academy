@@ -30,7 +30,7 @@ window.openEditInstructorModel = function(id) {
     .then(response => response.json()
     .then(data => {
         if(data.success){
-            console.log("Instructor data:", data.instructor);
+            console.log("course data from dashboard file:", data.instructor);
                 let inputName = document.querySelector('input[name="name"]');
                 let inputEmail = document.querySelector('input[name="email"]');
                 let inputSpecialization = document.querySelector('input[name="specialization"]');

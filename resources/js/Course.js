@@ -31,15 +31,17 @@ window.openEditCourseModel = function(id) {
     .then(data => {
         if(data.success){
             console.log("Course data:", data.course);
+
                 let inputTitle = document.querySelector('input[name="title"]');
                 let inputDescription = document.getElementById('courseDescription');
                 let inputprice = document.querySelector('input[name="price"]');
 
-            inputTitle.value = data.course.title;
+            inputTitle.value = data.course.title + " test";
             inputDescription.value = data.course.description;
             inputprice.value = data.course.price;
             document.querySelector('select[name="category"]').value = data.course.category_id;
             document.querySelector('select[name="instructor"]').value = data.course.instructor_id;
+            document.querySelector('select[name="duration"]').value = data.course.overview.duration;
 
         }else{
             console.error("Error fetching instructor data:", data.message);

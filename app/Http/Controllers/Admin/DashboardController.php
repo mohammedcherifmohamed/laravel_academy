@@ -96,6 +96,7 @@ class DashboardController extends Controller
                   "course"=> $course,
                   "instructors" => $instructors,
                   "categories" => $categories
+
             ]);
       } else {
             return response()->json([
@@ -162,9 +163,12 @@ class DashboardController extends Controller
 
       public function viewCourse($id){
             $course = Course::with(['category', 'instructor',"overview"])->find($id);
-
-            
-            return view('Course-detail',compact('course'));
+            if($course){
+                  return view('Course-detail',compact('course'));
+            }else{
+                  // give 404 
+                  abort(404,'course-Not-Found');
+            }
 
             
 

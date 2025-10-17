@@ -3,12 +3,12 @@
 
 @section('content')
 
-<div class="flex h-screen overflow-hidden">
+<div class="flex h-screen ">
 
     @include('Admin.includes.SideBar')
 
   <!-- Main Content -->
-  <div class="flex-1 flex flex-col overflow-y-auto w-full">
+  <div class="flex-1 flex flex-col  w-full">
 
     @include('Admin.includes.nav')
 
@@ -110,8 +110,9 @@
 </div>
 
 <!-- Add Course Modal -->
-<div id="addCourseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-4xl shadow-lg">
+<div id="addCourseModal"
+     class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto h-screen ">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-4xl shadow-lg my-10 h-full overflow-y-auto">
     <!-- Modal Header -->
     <div class="flex justify-between items-center mb-6 border-b pb-3">
       <h2 class="text-xl font-bold text-indigo-600">Add New Course</h2>
