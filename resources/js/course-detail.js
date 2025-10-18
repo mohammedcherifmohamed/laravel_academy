@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }); 
   }
 
+  const dialogModal = document.getElementById('dialogModal');
+  const dialogClosebtn = document.getElementById('closeDialogModal');
+
+  if (dialogClosebtn && dialogModal) {
+    dialogClosebtn.addEventListener('click', function() {
+      dialogModal.classList.add('hidden');
+    });
+  }
+
   // fetch course data to fill them in the model
 
 
@@ -21,5 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
  window.openModal = function() {
     document.getElementById('enrollModal').classList.remove('hidden');
+  }
+ window.showDialog = function() {
+    document.getElementById('dialogModal').classList.remove('hidden');
   }
 

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('category', function (Blueprint $table) {
+        Schema::table('course', function (Blueprint $table) {
             $table->unsignedBigInteger('quize_type')->nullable();
             $table->foreign('quize_type')->references('id')->on('quizes')->onDelete('cascade');
         });
@@ -22,10 +22,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('category', function (Blueprint $table) {
+        Schema::table('course', function (Blueprint $table) {
                         $table->dropForeign(['quize_type']);
 
-          $table->dropColumn('quize_type');
+            $table->dropColumn('quize_type');
         });
     }
 };
