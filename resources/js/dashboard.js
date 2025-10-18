@@ -35,23 +35,13 @@ window.openEditInstructorModel = function(id) {
                 let inputEmail = document.querySelector('input[name="email"]');
                 let inputSpecialization = document.querySelector('input[name="specialization"]');
                 let inputGender= document.querySelector('input[name="gender"]');
-                let inputduration= document.querySelector('input[name="duration"]');
-                let inputlessons= document.querySelector('input[name="lessons"]');
-                let inputold_price= document.querySelector('input[name="old_price"]');
-                let inputrequirements= document.querySelector('#requirements');
-                let inputwill_learn= document.querySelector('#will_learn');
 
             inputName.value = data.instructor.full_name;
             inputEmail.value = data.instructor.email;
             inputSpecialization.value = data.instructor.specialization;
-            inputduration.value = data.overview.duration;
-            inputlessons.value = data.overview.lessons;
-            inputold_price.value = data.overview.old_price;
-
-            inputrequirements.value = data.overview.requirements;
-            inputwill_learn.value = data.overview.will_learn;
 
             document.querySelector(`input[name="gender"][value="${data.instructor.gender}"]`).checked = true;
+            console.log("gender : "+ data.instructor.gender);
 
         }else{
             console.error("Error fetching instructor data:", data.message);

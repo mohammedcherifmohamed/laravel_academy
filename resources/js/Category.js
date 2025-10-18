@@ -1,4 +1,3 @@
-console.log('category script loaded');
 
 window.openEditModel = function(id) {
     console.log("Editing Category:", id);
@@ -31,9 +30,10 @@ window.openEditModel = function(id) {
         if(data.success){
             console.log("category data:", data.category);
             console.log("Fetched icon:", JSON.stringify(data.category.icon));
+                        console.log("Set icon select to:", data.category.icon);
 
                 let inputName = document.querySelector('input[name="name"]');
-                let inputIcon= document.querySelector('input[name="icon"]');
+                let inputIcon= document.querySelector('select[name="icon"]');
 
             inputName.value = data.category.name;
             inputIcon.value = data.category.icon;
@@ -42,6 +42,7 @@ window.openEditModel = function(id) {
                     const iconSelect = document.querySelector('select[name="icon"]');
                     if (iconSelect) {
                         iconSelect.value = data.category.icon;
+                        console.log("Set icon select to:", data.category.icon);
                     } else {
                         console.error("Select not found in DOM");
                     }
