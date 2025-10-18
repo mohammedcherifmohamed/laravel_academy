@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendToStudent;
+use App\Mail\SendEnrollmentToAdmin;
 use App\Models\Dashboard;
 use Illuminate\Validation\ValidationException;
 
@@ -33,9 +34,21 @@ public function enrollCourse(Request $request, $id)
             'message' => 'You have successfully enrolled in the course.',
         ];
 
-        // Send emails
+        $AdminData = [
+            'course_name' => $course->title,
+            'course_price' => $course->price,
+            'course_duration' => $course->duration,
+            'student_name' => $validated['studentName'],
+            'student_email' => $validated['studentEmail'],
+            'phone' => $validated['studentPhone'],
+            'subject' => 'New Course Enrollment',
+            'message' => 'A new student has enrolled in the course.',
+        ];
+
+        // Send email To Student 
         Mail::to($validated['studentEmail'])->send(new SendToStudent($data));
-        Mail::to('mafsamarari@gmail.com')->send(new SendToStudent($data));
+        // Send email To Admin
+        Mail::to('mdg85505@gmail.com')->send(new SendEnrollmentToAdmin($AdminData));
 
         return redirect()->back()->with('success', 'Enrollment successful. Emails sent!');
 
