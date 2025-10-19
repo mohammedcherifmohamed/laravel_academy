@@ -9,6 +9,8 @@ use App\Mail\sendToStudent;
 use App\Mail\SendEnrollmentToAdmin;
 use App\Models\Dashboard;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\Admin\StudentsController ;
+
 
 class EnrollController extends Controller
 {
@@ -26,6 +28,7 @@ public function enrollCourse(Request $request, $id)
 
         $data = [
             'course_name' => $course->title,
+            'student_email' => $validated['studentEmail'],
             'course_price' => $course->price,
             'course_duration' => $course->duration,
             'student_name' => $validated['studentName'],
@@ -50,11 +53,20 @@ public function enrollCourse(Request $request, $id)
         // Send email To Admin
         Mail::to('mdg85505@gmail.com')->send(new SendEnrollmentToAdmin($AdminData));
 
+        // save it as student in database
+        $studentcontroller = new StudentsController ();
+        $studentcontroller->addStudent($data);
+
+
         return redirect()->back()->with('success', 'Enrollment successful. Emails sent!');
 
     } catch (ValidationException $e) {
         return redirect()->back()->withErrors($e->errors())->withInput();
     }
+}
+
+public function GetQuizPage(Request $req , $id){
+    return view("QuizePage",["course_id"=>$id]);
 }
 
 }

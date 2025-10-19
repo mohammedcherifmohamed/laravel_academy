@@ -9,15 +9,15 @@
     @if (session('success'))
         <x-alert type="success">{{session("success")}}</x-alert>
     @endif
-@if ($errors->any())
-    <x-alert type="error">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </x-alert>
-@endif
+    @if ($errors->any())
+        <x-alert type="error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </x-alert>
+    @endif
 
 
 
@@ -305,50 +305,48 @@
     </div>
 
     {{-- Dialog Model --}}
-        <div id="dialogModal" class="fixed inset-0 flex items-center justify-center bg-black/60 hidden z-50">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transform transition-all scale-95 " id="modalContent">
-            
-            <!-- Close Button -->
-            <button id="closeDialogModal" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
-                <i class="fas fa-times text-xl"></i>
+{{-- Quiz Confirmation Modal --}}
+<div id="dialogModal"
+    class="fixed inset-0 flex items-center justify-center bg-black/60 hidden z-50 backdrop-blur-sm transition-opacity duration-300">
+
+    <div id="modalContent"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-8 relative transform transition-all duration-300 scale-95">
+
+        <!-- Close Button -->
+        <button id="closeDialogModal"
+            class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors duration-200">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+
+        <!-- Modal Header -->
+        <div class="text-center mb-6">
+            <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
+                This Course Contains a Quiz
+            </h3>
+            <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">
+                You need to pass this quiz to continue. Are you ready to start?
+            </p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 mt-8">
+           <form action="{{ route('course.quize', ['id' => $course->id]) }}" method="POST" class="flex-1">
+                @csrf
+                <button type="submit" 
+                    class="w-full bg-indigo-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition">
+                    Pass the Quiz
+                </button>
+            </form>
+
+
+            <button type="button" id="cancleBtn" onclick="closeCourseModal()"
+                class="flex-1 border border-gray-300 dark:border-gray-600 py-3 rounded-lg text-lg font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                Cancel
             </button>
-
-            <h2 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">THis course Contains A quizes Would you pass the exam</h2>
-        <form action="{{route('course.enroll', ['id' => $course->id])}}" method="POST" class="space-y-6">
-            @csrf
-            <!-- User Name -->
-            {{-- <div class="mb-4">
-                <label class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Your Name</label>
-                <input type="text" id="studentName" placeholder="Enter your full name"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none dark:bg-gray-700 dark:text-white">
-            </div>
-
-            <!-- Phone Number -->
-            <div class="mb-4">
-                <label class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Phone Number</label>
-                <input type="text" id="studentPhone" placeholder="+213 6xx xx xx xx"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none dark:bg-gray-700 dark:text-white">
-            </div>
-            
-            <!-- Course Info -->
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
-                <h3 class="font-semibold text-gray-900 dark:text-white">Course:</h3>
-                <p id="modalCourseTitle" class="text-gray-700 dark:text-gray-300"></p>
-            </div>
-            
-            <!-- Total Price -->
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="font-semibold text-gray-900 dark:text-white">Total Price:</h3>
-                <p id="modalCoursePrice" class="text-indigo-600 font-bold text-2xl"></p>
-            </div>
-            
-            <!-- Confirm Button -->
-            <button class="w-full bg-indigo-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-indigo-700 transition">
-                Confirm Enrollment
-            </button> --}}
-        </form>
         </div>
     </div>
+</div>
+
 
 
 <!-- Footer (same as index.html) -->

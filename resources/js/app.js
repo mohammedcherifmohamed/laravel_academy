@@ -6,3 +6,4 @@ import './Category';
 import './Course';
 import './allCourses';
 import './course-detail';
+import './QuizePage';

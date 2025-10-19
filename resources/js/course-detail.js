@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  const cancleBtn = document.getElementById('cancleBtn');
+
+  if (cancleBtn && dialogModal) {
+    cancleBtn.addEventListener('click', function() {
+      dialogModal.classList.add('hidden');
+    });
+  }
+
   // fetch course data to fill them in the model
 
 

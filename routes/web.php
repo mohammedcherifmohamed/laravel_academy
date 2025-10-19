@@ -36,6 +36,7 @@ Route::get('/home/courses/view/{id}',[DashboardController::class,"viewCourse"])-
 
 Route::prefix("enroll")->middleware('IsLoggedInsStudent')->group(function(){
     Route::post('/{id}',[EnrollController::class,"enrollCourse"])->name('course.enroll');
+    Route::post('/course/PassQuize/{id}',[EnrollController::class,"GetQuizPage"])->name("course.quize");
     
 });
 
