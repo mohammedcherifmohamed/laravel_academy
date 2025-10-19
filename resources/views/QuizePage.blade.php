@@ -27,13 +27,13 @@
           <p class="text-lg font-medium mb-4 text-gray-800 dark:text-gray-100">1️⃣ What is the output of <code>2 + "2"</code> in JavaScript?</p>
           <div class="space-y-3">
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q1" class="mr-2"> 4
+              <input type="radio" name="q1" value="4" class="mr-2"> 4
             </label>
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q1" class="mr-2"> 22
+              <input type="radio" name="q1" value="22" class="mr-2"> 22
             </label>
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q1" class="mr-2"> NaN
+              <input type="radio" name="q1" value="NaN" class="mr-2"> NaN
             </label>
           </div>
         </div>
@@ -43,13 +43,13 @@
           <p class="text-lg font-medium mb-4 text-gray-800 dark:text-gray-100">2️⃣ Which HTML tag is used to link JavaScript?</p>
           <div class="space-y-3">
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q2" class="mr-2"> &lt;script&gt;
+              <input type="radio" name="q2" value="<script>" class="mr-2"> &lt;script&gt;
             </label>
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q2" class="mr-2"> &lt;link&gt;
+              <input type="radio" name="q2" value="<link>" class="mr-2"> &lt;link&gt;
             </label>
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q2" class="mr-2"> &lt;js&gt;
+              <input type="radio" name="q2" value="<js>" class="mr-2"> &lt;js&gt;
             </label>
           </div>
         </div>
@@ -59,13 +59,13 @@
           <p class="text-lg font-medium mb-4 text-gray-800 dark:text-gray-100">3️⃣ Which of the following is a JavaScript framework?</p>
           <div class="space-y-3">
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q3" class="mr-2"> Laravel
+              <input type="radio" name="q3" value="Laravel" class="mr-2"> Laravel
             </label>
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q3" class="mr-2"> React
+              <input type="radio" name="q3" value="React" class="mr-2"> React
             </label>
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-              <input type="radio" name="q3" class="mr-2"> Django
+              <input type="radio" name="q3" value="Django" class="mr-2"> Django
             </label>
           </div>
         </div>
@@ -91,10 +91,10 @@
         <i class="fas fa-times text-xl"></i>
       </button>
 
-      <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">🎉 Quiz Result</h2>
+      <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">🎉 Quiz Result for course {{$course_id}}</h2>
       <p id="quizScore" class="text-center text-gray-600 dark:text-gray-300 mb-6"></p>
 
-      <form action="{{ route('enrollCourse', ['id' => $course->id]) }}" method="POST" class="space-y-4">
+      <form action="{{ route('course.enrollAfterQuiz', ['id' => $course_id]) }}" method="POST" class="space-y-4">
         @csrf
         <input type="text" name="studentName" placeholder="Full Name" required
           class="w-full px-4 py-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-indigo-400 outline-none">
@@ -118,6 +118,9 @@
     </div>
   </div>
  
-
+<script>
+    const quizSubmitUrl = "{{ route('course.SubmitQuiz', ['id' => $course_id]) }}";
+    const csrfToken = "{{ csrf_token() }}";
+</script>
 
 @endsection

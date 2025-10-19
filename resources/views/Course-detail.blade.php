@@ -334,7 +334,7 @@
                 @csrf
                 <button type="submit" 
                     class="w-full bg-indigo-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition">
-                    Pass the Quiz
+                    Pass the Quiz _{{$course->id}}
                 </button>
             </form>
 
