@@ -330,7 +330,7 @@
 
         <!-- Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 mt-8">
-           <form action="{{ route('course.quize', ['id' => $course->id]) }}" method="POST" class="flex-1">
+           <form action="{{ route('course.quize', ['id' => $course->id]) }}" method="GET" class="flex-1">
                 @csrf
                 <button type="submit" 
                     class="w-full bg-indigo-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition">

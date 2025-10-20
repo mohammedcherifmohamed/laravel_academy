@@ -71,6 +71,7 @@ function submitQuiz() {
       document.getElementById("quizModal").classList.add("hidden");
       // fill result modal data
       document.getElementById("quizScore").innerText = `You scored ${data.score}%`;
+      document.getElementById("studentScore").value = data.score;
       document.getElementById("courseName").innerText = data.course_name;
       document.getElementById("coursePrice").innerText = data.price;
       // show result modal

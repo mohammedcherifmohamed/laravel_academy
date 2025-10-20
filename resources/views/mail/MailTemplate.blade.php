@@ -64,6 +64,10 @@
                 <p><strong>Phone Number:</strong> {{ $data['phone'] }}</p>
                 <p><strong>Course Name:</strong> {{ $data['course_name'] }}</p>
                 <p><strong>Total Price:</strong> ${{ $data['course_price'] }}</p>
+                @isset($data["Score"])
+                    <p><strong>Your Score:</strong> {{ $data["Score"] }}%</p>
+                @endisset
+                    
             </div>
 
             <p>{{ $data['message'] ?? 'Thank you for choosing our academy. We look forward to seeing you in class!' }}</p>

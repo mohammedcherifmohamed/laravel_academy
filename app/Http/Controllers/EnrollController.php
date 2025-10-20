@@ -10,13 +10,14 @@ use App\Mail\SendEnrollmentToAdmin;
 use App\Models\Dashboard;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Admin\StudentsController ;
+use App\Models\Student;
 
 
 class EnrollController extends Controller
 {
 
-public function enrollCourse(Request $request, $id)
-{
+public function enrollCourse(Request $request, $id){
+
     try {
         $validated = $request->validate([
             'studentName' => 'required|string|max:255',
@@ -58,7 +59,7 @@ public function enrollCourse(Request $request, $id)
         $studentcontroller->addStudent($data);
 
 
-        return redirect()->back()->with('success', 'Enrollment successful. Emails sent!');
+        return view("mail.EnrollSuccess");
 
     } catch (ValidationException $e) {
         return redirect()->back()->withErrors($e->errors())->withInput();
@@ -100,21 +101,21 @@ public function SubmitQuiz(Request $req, $id){
         'success' => true,
         'score' => round($percentage),
         'course_name' => $course->title,
-        'price' => $course->price
+        'price' => $course->price,
     ]);
 }
 
-public function enrollAfterQuiz(Request $req , $id){
+public function enrollAfterQuiz(Request $req , $id ){
+try{
 
     $course = Dashboard::find($id);
 
     $validated = $req->validate([
         "studentName" => "required",
         "studentPhone" => "required|min:10|max:10",
-        "studentEmail" => "required|email"
+        "studentEmail" => "required|email",
+        "StudentScore" => "required|numeric|min:0|max:100"
     ]);
-
-    // dd($req->all());
 
         $data = [
             'course_name' => $course->title,
@@ -124,7 +125,9 @@ public function enrollAfterQuiz(Request $req , $id){
             'student_name' => $validated['studentName'],
             'phone' => $validated['studentPhone'],
             'subject' => 'Enrollment Confirmation',
-            'message' => 'You have successfully enrolled in the course. And Your Grade Is 67% ',
+            'message' => 'You have successfully enrolled in the course .',
+            "Score" => $validated['StudentScore'],
+            
         ];
 
         $AdminData = [
@@ -135,7 +138,8 @@ public function enrollAfterQuiz(Request $req , $id){
             'student_email' => $validated['studentEmail'],
             'phone' => $validated['studentPhone'],
             'subject' => 'New Course Enrollment',
-            'message' => 'A new student has enrolled in the course. with Grade 67%',
+            'message' => 'A new student has enrolled in the course.',
+            "Score" => $validated['StudentScore'],
         ];
     // Send email To Student 
         Mail::to($validated['studentEmail'])->send(new SendToStudent($data));
@@ -143,7 +147,15 @@ public function enrollAfterQuiz(Request $req , $id){
         Mail::to('mdg85505@gmail.com')->send(new SendEnrollmentToAdmin($AdminData));
 
     // mark him as student in DB
+            $studentcontroller = new StudentsController ();
+        $studentcontroller->addStudent($data);
+
+        return view("mail.EnrollSuccess");
+
+} catch(ValidationException $e){
+    return redirect()->back()->withErrors($e->errors())->withInput();
 
 }
 
+}
 }

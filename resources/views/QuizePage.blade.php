@@ -5,15 +5,38 @@
 
 @include('includes.nav')
 
+@if(session('success'))
+  <div class="fixed top-5 right-5 z-[9999]">
+  <x-alert type="success" >{{session("success")}}</x-alert>
+
+</div>
+@endif  
+
+  @if ($errors->any())
+  <div class="fixed top-5 right-5 z-[9999]">
+
+
+
+        <x-alert type="error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </x-alert>
+      
+    </div>
+    @endif
+
 
   <!-- Quiz Modal -->
-  <div id="quizModal" class="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
+  <div id="quizModal" class="fixed inset-0 flex items-center justify-center inset-0 bg-black/60 z-40">
     <div id="quizContent" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transform transition-all duration-300 scale-100">
 
-      <!-- Close Button -->
+      {{-- <!-- Close Button -->
       <button onclick="closeQuiz()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
         <i class="fas fa-times text-xl"></i>
-      </button>
+      </button> --}}
 
       <!-- Quiz Header -->
       <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">Course Quiz</h2>
@@ -84,25 +107,22 @@
   </div>
 
    <!-- RESULT MODAL -->
-  <div id="resultModal" class="fixed inset-0 flex items-center justify-center bg-black/60 hidden z-50 backdrop-blur-sm">
+  <div id="resultModal" class="fixed inset-0 flex items-center justify-center inset-0 bg-black/60 hidden z-40 ">
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
-
-      <button onclick="closeResultModal()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
-        <i class="fas fa-times text-xl"></i>
-      </button>
 
       <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">🎉 Quiz Result for course {{$course_id}}</h2>
       <p id="quizScore" class="text-center text-gray-600 dark:text-gray-300 mb-6"></p>
 
       <form action="{{ route('course.enrollAfterQuiz', ['id' => $course_id]) }}" method="POST" class="space-y-4">
         @csrf
-        <input type="text" name="studentName" placeholder="Full Name" required
+        <input type="text" name="StudentScore" value="" id="studentScore" hidden>
+        <input type="text" name="studentName" value="{{auth()->user()->name}}" placeholder="Full Name" required
           class="w-full px-4 py-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-indigo-400 outline-none">
 
-        <input type="email" name="studentEmail" placeholder="Email" required
+        <input type="email" name="studentEmail" value="{{auth()->user()->email}}" placeholder="Email" required
           class="w-full px-4 py-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-indigo-400 outline-none">
 
-        <input type="text" name="studentPhone" placeholder="Phone Number" required
+        <input type="text" name="studentPhone"   placeholder="Phone Number" required
           class="w-full px-4 py-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-indigo-400 outline-none">
 
         <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">

@@ -17,7 +17,11 @@ class StudentsController extends Controller
        // check if student exists 
        $existingStudent = Student::where('email', $data["student_email"])->first();
          if ($existingStudent) {
-              // Student already exists, no need to add again
+              // update existing student info
+              $existingStudent->update([
+                  "name" => $data["student_name"],
+                  "phone_number" => $data["phone"]
+              ]);
               return;
          }
       Student::create([

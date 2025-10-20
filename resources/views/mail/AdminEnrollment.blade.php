@@ -67,6 +67,10 @@
             </div>
 
             <p>{{ $data['message'] ?? 'Check this Student As Soon As Possible' }}</p>
+            @isset($data["Score"])
+                    <p><strong>Score:</strong> {{ $data["Score"] }}%</p>
+                @endisset
+
 
             <p>Best regards,<br>Laravel Academy</p>
         </div>
