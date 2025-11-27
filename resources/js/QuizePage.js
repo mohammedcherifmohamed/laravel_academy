@@ -1,6 +1,6 @@
 let currentPage = 1;
 const totalPages = 3;
-const answers = {}; // store selected answers
+const answers = {}; 
 
 document.getElementById("totalPages").textContent = totalPages;
 
@@ -23,13 +23,12 @@ function saveCurrentAnswer() {
 }
 
 window.nextPage = function () {
-  saveCurrentAnswer(); // store the answer before moving on
+  saveCurrentAnswer(); 
 
   if (currentPage < totalPages) {
     currentPage++;
     showPage(currentPage);
   } else {
-    // reached the last question → submit
     submitQuiz();
   }
 };
@@ -50,10 +49,7 @@ showPage(currentPage);
 const modal = document.getElementById("resultModal");
 
 function submitQuiz() {
-  // also capture the last question if not done yet
   saveCurrentAnswer();
-
-  // You can inspect answers in console if needed
   console.log("Submitted Answers:", answers);
 
   fetch(quizSubmitUrl, {
@@ -67,14 +63,11 @@ function submitQuiz() {
   .then(res => res.json())
   .then(data => {
     if (data.success) {
-      // hide quiz modal
       document.getElementById("quizModal").classList.add("hidden");
-      // fill result modal data
       document.getElementById("quizScore").innerText = `You scored ${data.score}%`;
       document.getElementById("studentScore").value = data.score;
       document.getElementById("courseName").innerText = data.course_name;
       document.getElementById("coursePrice").innerText = data.price;
-      // show result modal
       modal.classList.remove("hidden");
     } else {
       alert("Something went wrong submitting your quiz.");

@@ -73,17 +73,14 @@ public function GetQuizPage(Request $req , $id){
 
 public function SubmitQuiz(Request $req, $id){
 
-    // Get answers from request
     $answers = $req->all();
 
-    // Example correct answers
     $correctAnswers = [
         'q1' => '22',
         'q2' => '<script>',
         'q3' => 'React'
     ];
 
-    // Calculate score
     $score = 0;
     foreach ($correctAnswers as $key => $correct) {
         if (isset($answers[$key]) && $answers[$key] == $correct) {
@@ -96,7 +93,6 @@ public function SubmitQuiz(Request $req, $id){
     $course = Dashboard::find($id);
 
 
-    // Return JSON so JS can parse it
     return response()->json([
         'success' => true,
         'score' => round($percentage),
@@ -106,56 +102,56 @@ public function SubmitQuiz(Request $req, $id){
 }
 
 public function enrollAfterQuiz(Request $req , $id ){
-try{
+    try{
 
-    $course = Dashboard::find($id);
+        $course = Dashboard::find($id);
 
-    $validated = $req->validate([
-        "studentName" => "required",
-        "studentPhone" => "required|min:10|max:10",
-        "studentEmail" => "required|email",
-        "StudentScore" => "required|numeric|min:0|max:100"
-    ]);
+        $validated = $req->validate([
+            "studentName" => "required",
+            "studentPhone" => "required|min:10|max:10",
+            "studentEmail" => "required|email",
+            "StudentScore" => "required|numeric|min:0|max:100"
+        ]);
 
-        $data = [
-            'course_name' => $course->title,
-            'student_email' => $validated['studentEmail'],
-            'course_price' => $course->price,
-            'course_duration' => $course->duration,
-            'student_name' => $validated['studentName'],
-            'phone' => $validated['studentPhone'],
-            'subject' => 'Enrollment Confirmation',
-            'message' => 'You have successfully enrolled in the course .',
-            "Score" => $validated['StudentScore'],
-            
-        ];
+            $data = [
+                'course_name' => $course->title,
+                'student_email' => $validated['studentEmail'],
+                'course_price' => $course->price,
+                'course_duration' => $course->duration,
+                'student_name' => $validated['studentName'],
+                'phone' => $validated['studentPhone'],
+                'subject' => 'Enrollment Confirmation',
+                'message' => 'You have successfully enrolled in the course .',
+                "Score" => $validated['StudentScore'],
+                
+            ];
 
-        $AdminData = [
-            'course_name' => $course->title,
-            'course_price' => $course->price,
-            'course_duration' => $course->duration,
-            'student_name' => $validated['studentName'],
-            'student_email' => $validated['studentEmail'],
-            'phone' => $validated['studentPhone'],
-            'subject' => 'New Course Enrollment',
-            'message' => 'A new student has enrolled in the course.',
-            "Score" => $validated['StudentScore'],
-        ];
-    // Send email To Student 
-        Mail::to($validated['studentEmail'])->send(new SendToStudent($data));
-        // Send email To Admin
-        Mail::to('mdg85505@gmail.com')->send(new SendEnrollmentToAdmin($AdminData));
+            $AdminData = [
+                'course_name' => $course->title,
+                'course_price' => $course->price,
+                'course_duration' => $course->duration,
+                'student_name' => $validated['studentName'],
+                'student_email' => $validated['studentEmail'],
+                'phone' => $validated['studentPhone'],
+                'subject' => 'New Course Enrollment',
+                'message' => 'A new student has enrolled in the course.',
+                "Score" => $validated['StudentScore'],
+            ];
+        // Send email To Student 
+            Mail::to($validated['studentEmail'])->send(new SendToStudent($data));
+            // Send email To Admin
+            Mail::to('mdg85505@gmail.com')->send(new SendEnrollmentToAdmin($AdminData));
 
-    // mark him as student in DB
-            $studentcontroller = new StudentsController ();
-        $studentcontroller->addStudent($data);
+        // mark him as student in DB
+                $studentcontroller = new StudentsController ();
+            $studentcontroller->addStudent($data);
 
-        return view("mail.EnrollSuccess");
+            return view("mail.EnrollSuccess");
 
-} catch(ValidationException $e){
-    return redirect()->back()->withErrors($e->errors())->withInput();
+    } catch(ValidationException $e){
+        return redirect()->back()->withErrors($e->errors())->withInput();
 
-}
+    }
 
 }
 }

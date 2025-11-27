@@ -23,13 +23,16 @@ public function run(): void
 
 
     $this->call([
-        QuizeSeeder::class,
         CategorySeeder::class,
         InstructorSeeder::class,
         CourseSeeder::class,
         CourseOverviewSeeder::class,
-        QuestionSeeder::class,
         UserSeeder::class,
+        QuizeSeeder::class,
+        QuestionsSeeder::class,
+        OptionsSeeder::class,
+
+
     ]);
 }
 
