@@ -69,5 +69,10 @@ Route::get('/admin/admins',[AdminsController::class,"loadAdmins"])->name('admin.
 Route::get('/sendEmail',[SendEmailController::class,"sendVerificationEmail"])->name('send.email');
 
 
+// testing data route 
+    
+Route::get('/test',[EnrollController::class,"testData"] )->name("test.data");
+
+
 
 

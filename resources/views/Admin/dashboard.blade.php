@@ -181,6 +181,18 @@
             <input name="price" type="number" value="{{ old('price') }}" 
               class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
           </div>
+          {{-- Quize --}}
+          <div>
+            <label class="block mb-1 font-semibold text-white">Attach Quize</label>
+            <select name="quize_type" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+              <option value="0">No Quize required</option>
+              @forelse($quizes as $quize)
+                <option value="{{ $quize->id }}">{{ $quize->quize_type }}</option>
+              @empty
+                <option value="0">No Quize Available</option>
+              @endforelse
+            </select>
+          </div>
         </div>
 
         <!-- Right Column -->

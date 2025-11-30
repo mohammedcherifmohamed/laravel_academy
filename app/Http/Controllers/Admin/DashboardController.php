@@ -8,21 +8,26 @@ use App\Models\Dashboard as Course;
 use App\Models\Course_Overview;
 use App\Models\Instructor;
 use App\Models\Category;
+use App\Models\Quizes;
 
 class DashboardController extends Controller
 {
    public function loadDashboard(){
-      // fetch instructors and categories
       $instructors = instructor::all();
       $categories = Category::all();
+      // quizes
+      $quizes = Quizes::all();
       // join category and instructors tables
       $courses = Course::with(['category', 'instructor',"overview"])->get();
       // $courses = Course::all();
 
-         return view('Admin.dashboard',compact('instructors','categories',"courses"));
+         return view('Admin.dashboard',compact('instructors','categories',"courses","quizes"));
    }
 
    public function addCourse(Request $req){
+
+
+      // dd( $req->all());
 
       $req->validate([
             'title' => 'required|max:255',
@@ -37,6 +42,7 @@ class DashboardController extends Controller
             "lessons" => "nullable|numeric|min:0",
             "will_learn" => "nullable|string|max:500",
             "level" => "nullable|in:beginner,intermediate,advanced",
+            "quize_type" => "nullable"
       ]);
 
       // Handle file upload
@@ -55,6 +61,7 @@ class DashboardController extends Controller
             'image_path' => $imagePath 
       ]);
 
+
       $res2 = course_overview::create([
             "duration" => $req->duration,
             "old_price" => $req->old_price,
@@ -62,8 +69,8 @@ class DashboardController extends Controller
             "will_learn" => $req->will_learn,
             "lessons" => $req->lessons,
             "level" => $req->level,
-            "course_id" => $res->id 
-
+            "course_id" => $res->id, 
+            "quize_id" => $req->quize_type,
       ]);
 
 
@@ -87,7 +94,7 @@ class DashboardController extends Controller
    }
 
    public function editCourse($id){
-      $course = Course::with(['category','instructor','overview'])->find($id);
+      $course = Course::with(['category','instructor','overview',"overview.quize"])->find($id);
       if($course){
             $instructors = Instructor::all();
             $categories = Category::all();
@@ -121,6 +128,7 @@ class DashboardController extends Controller
             "lessons" => "nullable|numeric|min:0",
             "will_learn" => "nullable|string|max:500",
             "level" => "nullable|in:beginner,intermediate,advanced",
+            "quize_type" => "nullable"
       ]);
 
       $course = Course::find($id);
@@ -149,7 +157,8 @@ class DashboardController extends Controller
             "requirements" => $req->requirements,
             "will_learn" => $req->will_learn,
             "lessons" => $req->lessons,
-            "level" => $req->level
+            "level" => $req->level,
+            "quize_id" => $req->quize_type,
       ]);
 
       if(!$res1 || !$res2){
@@ -163,6 +172,7 @@ class DashboardController extends Controller
 
       public function viewCourse($id){
             $course = Course::with(['category', 'instructor',"overview"])->find($id);
+            // dd($course);
             if($course){
                   return view('Course-detail',compact('course'));
             }else{

@@ -11,7 +11,7 @@ use App\Models\Dashboard;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Admin\StudentsController ;
 use App\Models\Student;
-
+use App\Models\Quizes;
 
 class EnrollController extends Controller
 {
@@ -152,6 +152,13 @@ public function enrollAfterQuiz(Request $req , $id ){
         return redirect()->back()->withErrors($e->errors())->withInput();
 
     }
+
+}
+
+public function testData(){
+
+    $data = Quizes::with("questions.options")->get();
+    return view("testData",compact('data'));
 
 }
 }

@@ -4,95 +4,103 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Questions as Question;
 
 class OptionsSeeder extends Seeder
 {
     public function run(): void
-    {
+    {        
         DB::table('options')->insert([
-            // -------------------------
-            // English quiz (Q5-Q9)
-            // -------------------------
-            // Q5: What is the plural of "child"?
-            ['question_id' => 5, 'content' => 'Childs', 'is_correct' => false],
-            ['question_id' => 5, 'content' => 'Children', 'is_correct' => true],
-            ['question_id' => 5, 'content' => 'Childes', 'is_correct' => false],
 
-            // Q6: Choose the correct sentence:
-            ['question_id' => 6, 'content' => 'He go to school.', 'is_correct' => false],
-            ['question_id' => 6, 'content' => 'He goes to school.', 'is_correct' => true],
-            ['question_id' => 6, 'content' => 'He going to school.', 'is_correct' => false],
+        // ------------------------------------
+            // English Quiz (questions id 1 → 5)
+            // ------------------------------------
 
-            // Q7: What is the synonym of "happy"?
-            ['question_id' => 7, 'content' => 'Sad', 'is_correct' => false],
-            ['question_id' => 7, 'content' => 'Joyful', 'is_correct' => true],
-            ['question_id' => 7, 'content' => 'Angry', 'is_correct' => false],
+            // Q1: plural of child
+            ['question_id' => 1, 'content' => 'Childs',   'is_correct' => 0],
+            ['question_id' => 1, 'content' => 'Children','is_correct' => 1],
+            ['question_id' => 1, 'content' => 'Childes', 'is_correct' => 0],
 
-            // Q8: Which word is an adjective?
-            ['question_id' => 8, 'content' => 'Beautiful', 'is_correct' => true],
-            ['question_id' => 8, 'content' => 'Run', 'is_correct' => false],
-            ['question_id' => 8, 'content' => 'Dog', 'is_correct' => false],
+            // Q2: correct sentence
+            ['question_id' => 2, 'content' => 'He go to school.',      'is_correct' => 0],
+            ['question_id' => 2, 'content' => 'He goes to school.',    'is_correct' => 1],
+            ['question_id' => 2, 'content' => 'He going to school.',   'is_correct' => 0],
 
-            // Q9: Fill in the blank: I _____ to school every day.
-            ['question_id' => 9, 'content' => 'go', 'is_correct' => true],
-            ['question_id' => 9, 'content' => 'going', 'is_correct' => false],
-            ['question_id' => 9, 'content' => 'gone', 'is_correct' => false],
+            // Q3: synonym of happy
+            ['question_id' => 3, 'content' => 'Sad',      'is_correct' => 0],
+            ['question_id' => 3, 'content' => 'Joyful',   'is_correct' => 1],
+            ['question_id' => 3, 'content' => 'Angry',    'is_correct' => 0],
 
-            // -------------------------
-            // French quiz (Q10-Q14)
-            // -------------------------
-            // Q10: Comment dit-on "apple" en français ?
-            ['question_id' => 10, 'content' => 'Pomme', 'is_correct' => true],
-            ['question_id' => 10, 'content' => 'Poire', 'is_correct' => false],
-            ['question_id' => 10, 'content' => 'Orange', 'is_correct' => false],
+            // Q4: adjective
+            ['question_id' => 4, 'content' => 'Go',       'is_correct' => 0],
+            ['question_id' => 4, 'content' => 'Happy',    'is_correct' => 1],
+            ['question_id' => 4, 'content' => 'Run',      'is_correct' => 0],
 
-            // Q11: Quel est le pluriel de "cheval" ?
-            ['question_id' => 11, 'content' => 'Chevals', 'is_correct' => false],
-            ['question_id' => 11, 'content' => 'Chevaux', 'is_correct' => true],
-            ['question_id' => 11, 'content' => 'Chevale', 'is_correct' => false],
+            // Q5: Fill in the blank
+            ['question_id' => 5, 'content' => 'go',       'is_correct' => 1],
+            ['question_id' => 5, 'content' => 'going',    'is_correct' => 0],
+            ['question_id' => 5, 'content' => 'gone',     'is_correct' => 0],
 
-            // Q12: Quelle phrase est correcte ?
-            ['question_id' => 12, 'content' => 'Je mange une pomme.', 'is_correct' => true],
-            ['question_id' => 12, 'content' => 'Je mangee une pomme.', 'is_correct' => false],
-            ['question_id' => 12, 'content' => 'Je manges une pomme.', 'is_correct' => false],
 
-            // Q13: Quel est l’infinitif du verbe "manges" ?
-            ['question_id' => 13, 'content' => 'Manger', 'is_correct' => true],
-            ['question_id' => 13, 'content' => 'Manges', 'is_correct' => false],
-            ['question_id' => 13, 'content' => 'Mang', 'is_correct' => false],
+            // ------------------------------------
+            // French Quiz (questions id 6 → 10)
+            // ------------------------------------
 
-            // Q14: Comment dit-on "thank you" en français ?
-            ['question_id' => 14, 'content' => 'Merci', 'is_correct' => true],
-            ['question_id' => 14, 'content' => 'Bonjour', 'is_correct' => false],
-            ['question_id' => 14, 'content' => 'Salut', 'is_correct' => false],
+            // Q6: apple in French
+            ['question_id' => 6, 'content' => 'Pomme', 'is_correct' => 1],
+            ['question_id' => 6, 'content' => 'Poire', 'is_correct' => 0],
+            ['question_id' => 6, 'content' => 'Orange','is_correct' => 0],
 
-            // -------------------------
-            // Coding quiz (Q15-Q19)
-            // -------------------------
-            // Q15: What does HTML stand for?
-            ['question_id' => 15, 'content' => 'Hyperlinks Text Marking Language', 'is_correct' => false],
-            ['question_id' => 15, 'content' => 'HyperText Markup Language', 'is_correct' => true],
-            ['question_id' => 15, 'content' => 'Home Tool Markup Language', 'is_correct' => false],
+            // Q7: plural of cheval
+            ['question_id' => 7, 'content' => 'Cheval',  'is_correct' => 0],
+            ['question_id' => 7, 'content' => 'Chevaux', 'is_correct' => 1],
+            ['question_id' => 7, 'content' => 'Chevale', 'is_correct' => 0],
 
-            // Q16: Which of these is a JavaScript data type?
-            ['question_id' => 16, 'content' => 'String', 'is_correct' => true],
-            ['question_id' => 16, 'content' => 'Paragraph', 'is_correct' => false],
-            ['question_id' => 16, 'content' => 'Div', 'is_correct' => false],
+            // Q8: correct phrase
+            ['question_id' => 8, 'content' => 'Je mange une pomme.',  'is_correct' => 1],
+            ['question_id' => 8, 'content' => 'Je mangee une pomme.', 'is_correct' => 0],
+            ['question_id' => 8, 'content' => 'Je manges une pomme.', 'is_correct' => 0],
 
-            // Q17: What is the correct syntax to print in PHP?
-            ['question_id' => 17, 'content' => 'echo "Hello";', 'is_correct' => true],
-            ['question_id' => 17, 'content' => 'print "Hello"', 'is_correct' => false],
-            ['question_id' => 17, 'content' => 'console.log("Hello");', 'is_correct' => false],
+            // Q9: infinitive of manges
+            ['question_id' => 9, 'content' => 'Manger', 'is_correct' => 1],
+            ['question_id' => 9, 'content' => 'Manges', 'is_correct' => 0],
+            ['question_id' => 9, 'content' => 'Mang',   'is_correct' => 0],
 
-            // Q18: What does CSS stand for?
-            ['question_id' => 18, 'content' => 'Cascading Style Sheets', 'is_correct' => true],
-            ['question_id' => 18, 'content' => 'Creative Style Sheets', 'is_correct' => false],
-            ['question_id' => 18, 'content' => 'Computer Style Sheets', 'is_correct' => false],
+            // Q10: thank you in French
+            ['question_id' => 10, 'content' => 'Merci',   'is_correct' => 1],
+            ['question_id' => 10, 'content' => 'Bonjour', 'is_correct' => 0],
+            ['question_id' => 10, 'content' => 'Salut',   'is_correct' => 0],
 
-            // Q19: Which symbol is used to start a comment in SQL?
-            ['question_id' => 19, 'content' => '--', 'is_correct' => true],
-            ['question_id' => 19, 'content' => '#', 'is_correct' => false],
-            ['question_id' => 19, 'content' => '/*', 'is_correct' => false],
+
+            // ------------------------------------
+            // Coding Quiz (questions id 11 → 15)
+            // ------------------------------------
+
+            // Q11: HTML
+            ['question_id' => 11, 'content' => 'Hyperlinks Text Marking Language',   'is_correct' => 0],
+            ['question_id' => 11, 'content' => 'HyperText Markup Language',         'is_correct' => 1],
+            ['question_id' => 11, 'content' => 'Home Tool Markup Language',         'is_correct' => 0],
+
+            // Q12: JS data type
+            ['question_id' => 12, 'content' => 'String',    'is_correct' => 1],
+            ['question_id' => 12, 'content' => 'Paragraph', 'is_correct' => 0],
+            ['question_id' => 12, 'content' => 'Div',       'is_correct' => 0],
+
+            // Q13: print PHP
+            ['question_id' => 13, 'content' => 'echo "Hello";',     'is_correct' => 1],
+            ['question_id' => 13, 'content' => 'print "Hello"',     'is_correct' => 0],
+            ['question_id' => 13, 'content' => 'console.log("Hello");','is_correct' => 0],
+
+            // Q14: CSS
+            ['question_id' => 14, 'content' => 'Cascading Style Sheets', 'is_correct' => 1],
+            ['question_id' => 14, 'content' => 'Creative Style Sheets',  'is_correct' => 0],
+            ['question_id' => 14, 'content' => 'Computer Style Sheets',  'is_correct' => 0],
+
+            // Q15: SQL comment
+            ['question_id' => 15, 'content' => '--',  'is_correct' => 1],
+            ['question_id' => 15, 'content' => '#',   'is_correct' => 0],
+            ['question_id' => 15, 'content' => '/*',  'is_correct' => 0],
+
         ]);
     }
 }

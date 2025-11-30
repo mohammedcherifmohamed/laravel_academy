@@ -89,6 +89,10 @@
                 <label class="block mb-1 text-white">Email</label>
                 <input name="email" type="email" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
             </div>
+            <div>
+                <label class="block mb-1 text-white">Password</label>
+                <input name="password" type="password" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+            </div>
 
             <!-- Specialization -->
             <div>

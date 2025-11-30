@@ -59,7 +59,7 @@
                         <span id="coursePrice" class="text-2xl font-bold text-gray-800 dark:text-white">{{$course->price}} DZ</span>
                         <span class="text-sm text-gray-500 dark:text-gray-400 line-through">{{$course->overview->old_price ?? ""}} </span>
                     </div>
-                    @if ($course->quize_type  == 0)
+                    @if ($course->overview->quize_id  == 0)
                       <button onclick="openModal() " class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 mb-3">Enroll Now</button>
                         
                     @else

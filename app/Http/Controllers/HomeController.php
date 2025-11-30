@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
     public function loadHome()
     {
-        // Logic to load the home page
         // load courses 
        $courses = Course::with(['category', 'instructor'])->take(6)->get();
         $categories = Category::all();

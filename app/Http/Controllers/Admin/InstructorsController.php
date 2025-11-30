@@ -19,6 +19,7 @@ class InstructorsController extends Controller
         "name" => "required|max:200|min:3",
         "email" => "required|email|unique:instructor,email",
         "gender" => "required",
+        "password" => "required|min:3",
          "specialization" => "required|max:100|min:3",
       ]);
 
@@ -26,6 +27,7 @@ class InstructorsController extends Controller
          "full_name" => $req->name ,
          "email" => $req->email,
          "gender" => $req->gender,
+         "password" => bcrypt($req->password),
          "specialization" => $req->specialization,
 
       ]);
