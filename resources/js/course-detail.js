@@ -27,11 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // fetch course data to fill them in the model
-
-
-
-
 
 });
 

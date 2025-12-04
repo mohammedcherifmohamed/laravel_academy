@@ -95,6 +95,7 @@ class DashboardController extends Controller
 
    public function editCourse($id){
       $course = Course::with(['category','instructor','overview',"overview.quize"])->find($id);
+      // dd($course);
       if($course){
             $instructors = Instructor::all();
             $categories = Category::all();
@@ -114,6 +115,8 @@ class DashboardController extends Controller
 
 
    public function updateCourse(Request $req , $id){
+
+      // dd($req->quize_type);
 
       $req->validate([
            'title' => 'required|max:255',
@@ -172,15 +175,11 @@ class DashboardController extends Controller
 
       public function viewCourse($id){
             $course = Course::with(['category', 'instructor',"overview"])->find($id);
-            // dd($course);
             if($course){
                   return view('Course-detail',compact('course'));
             }else{
-                  // give 404 
                   abort(404,'course-Not-Found');
             }
-
-            
 
       }
 

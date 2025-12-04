@@ -44,8 +44,24 @@
 
       <!-- Quiz Questions -->
       <div id="quizPages">
+        @forelse ($quizes as $quize)
+            <h1>{{$quize->quize_type}}</h1>
+            @foreach($quize->questions as $question)
+              <h1>{{$question->question_text}}</h1>
 
-        <!-- Question 1 -->
+              @foreach($question->options as $option)
+                <label>
+                  <input type="radio" name="question_{{$question->id}}" value="{{$option->option_text}}">
+                  {{$option->content}}
+                </label>
+
+
+            @endforeach
+            @endforeach
+        @empty
+            
+        @endforelse
+        {{-- <!-- Question 1 -->
         <div class="quiz-page" id="page1">
           <p class="text-lg font-medium mb-4 text-gray-800 dark:text-gray-100">1️⃣ What is the output of <code>2 + "2"</code> in JavaScript?</p>
           <div class="space-y-3">
@@ -75,10 +91,10 @@
               <input type="radio" name="q2" value="<js>" class="mr-2"> &lt;js&gt;
             </label>
           </div>
-        </div>
+        </div> --}}
 
         <!-- Question 3 -->
-        <div class="quiz-page hidden" id="page3">
+        {{-- <div class="quiz-page hidden" id="page3">
           <p class="text-lg font-medium mb-4 text-gray-800 dark:text-gray-100">3️⃣ Which of the following is a JavaScript framework?</p>
           <div class="space-y-3">
             <label class="block p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -91,7 +107,7 @@
               <input type="radio" name="q3" value="Django" class="mr-2"> Django
             </label>
           </div>
-        </div>
+        </div> --}}
       </div>
 
       <!-- Pagination -->

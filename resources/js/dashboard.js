@@ -84,3 +84,4 @@ document.querySelectorAll('input[name="gender"]').forEach(radio => {
 });
 
 }
+

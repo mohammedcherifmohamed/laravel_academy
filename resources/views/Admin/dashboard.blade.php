@@ -166,7 +166,7 @@
           <!-- Instructor -->
           <div>
             <label class="block mb-1 font-semibold text-white">Instructor</label>
-            <select name="instructor" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
+            <select  name="instructor" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
               @forelse($instructors as $instructor)
                 <option value="{{ $instructor->id }}">{{ $instructor->full_name }}</option>
               @empty
@@ -187,7 +187,7 @@
             <select name="quize_type" class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
               <option value="0">No Quize required</option>
               @forelse($quizes as $quize)
-                <option value="{{ $quize->id }}">{{ $quize->quize_type }}</option>
+                <option value="{{ $quize->id}}">{{ $quize->quize_type }}</option>
               @empty
                 <option value="0">No Quize Available</option>
               @endforelse
@@ -238,13 +238,13 @@
           <div>
             <label class="block mb-1 font-semibold text-white">Requirements</label>
             <textarea id="requirements" name="requirements" rows="4"
-              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{ old('description') }}</textarea>
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{ old('requirements') }}</textarea>
           </div>
           <!-- what will learn -->
           <div>
             <label class="block mb-1 font-semibold text-white">what will learn</label>
             <textarea id="will_learn" name="will_learn" rows="4"
-              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{ old('description') }}</textarea>
+              class="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600">{{ old('will_learn') }}</textarea>
           </div>
 
         </div>

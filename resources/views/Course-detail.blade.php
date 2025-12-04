@@ -98,7 +98,6 @@
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Main Content -->
                 <div class="lg:w-2/3">
-                    <!-- Course Tabs -->
                     @if($course->overview)
                         <div class="border-b border-gray-200 dark:border-gray-700 mb-8">
                             <nav class="flex space-x-8">
@@ -334,7 +333,7 @@
                 @csrf
                 <button type="submit" 
                     class="w-full bg-indigo-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition">
-                    Pass the Quiz _{{$course->id}}
+                    Pass the Quiz
                 </button>
             </form>
 

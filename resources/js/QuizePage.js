@@ -1,3 +1,4 @@
+
 let currentPage = 1;
 const totalPages = 3;
 const answers = {}; 
@@ -78,6 +79,28 @@ function submitQuiz() {
     alert("Error submitting quiz.");
   });
 }
+
+function LoadQuizes(id){
+  console.log("Loading Quizes");
+  fetch("/course/PassQuize/"+id,{
+    method:"GET",
+    headers:{
+      "Content-Type": "application/json",
+      "X-CSRF-TOKEN": csrfToken 
+    }
+
+  })
+  .then(res => res.json())
+  .then(data =>{
+    if(data.success){
+      console.log(data);
+    }
+  })
+  .catch(err=>{
+    console.error(err);
+  })
+}
+
 
 window.closeResultModal = function () {
   modal.classList.add("hidden");

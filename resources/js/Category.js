@@ -85,3 +85,12 @@ window.closeCategoryModal = function () {
     document.querySelector('select[name="icon"]').value = '';
 
 }
+
+window.saveCategory = function(){
+    console.log("Saving saveCategory ...");
+    let saveCourse = document.getElementById('saveCategoryBtn');
+    saveCourse.disabled = true;
+    saveCourse.innerText = 'Saving...';
+        document.getElementById('categoryForm').submit();
+
+}

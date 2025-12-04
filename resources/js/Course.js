@@ -4,15 +4,12 @@
 window.openEditCourseModel = function(id) {
     // console.log("Editing instructor:", id);
     document.getElementById('addCourseModal').classList.remove('hidden');
-     // Change form action to update route
     let form = document.getElementById('addCourseForm');
     form.action = `/admin/courses/update/${id}`;
     
-    // Remove any existing hidden _method
     let oldMethod = form.querySelector('input[name="_method"]');
     if (oldMethod) oldMethod.remove();
     
-    // Add hidden _method for PUT
     let methodInput = document.createElement('input');
     methodInput.type = 'hidden';
     methodInput.name = '_method';
@@ -35,13 +32,13 @@ window.openEditCourseModel = function(id) {
                 let inputDescription = document.getElementById('courseDescription');
                 let inputprice = document.querySelector('input[name="price"]');
 
-            inputTitle.value = data.course.title + " Static";
+            inputTitle.value = data.course.title ;
             inputDescription.value = data.course.description;
             inputprice.value = data.course.price;
             document.querySelector('select[name="category"]').value = data.course.category_id;
             document.querySelector('select[name="instructor"]').value = data.course.instructor_id;
             document.querySelector('select[name="level"]').value = data.course.overview.level;
-            //this is a number input does it work like this
+            document.querySelector('select[name="quize_type"]').value = data.course.overview.quize_id;
             document.querySelector('input[name="duration"]').value = data.course.overview.duration;
             document.querySelector('input[name="old_price"]').value = data.course.overview.old_price;
             document.querySelector('input[name="lessons"]').value = data.course.overview.lessons;
@@ -98,3 +95,4 @@ window.closeCourseModal = function () {
 
 
 }
+

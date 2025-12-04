@@ -68,7 +68,10 @@ public function enrollCourse(Request $request, $id){
 
 public function GetQuizPage(Request $req , $id){
 
-    return view("QuizePage",["course_id"=>$id]);
+    $quizes = Quizes::with("questions")->get();
+    // dd($quizes);
+    $course_id = $id ;
+    return view("QuizePage",compact("quizes","course_id"));
 }
 
 public function SubmitQuiz(Request $req, $id){

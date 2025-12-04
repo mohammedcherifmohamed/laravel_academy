@@ -115,7 +115,7 @@
             <!-- Buttons -->
             <div class="flex justify-end gap-2">
                 <button type="button" onclick="closeInstructorModal()" class="px-4 py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-gray-700">Cancel</button>
-                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Save</button>
+                <button type="submit"  class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Save</button>
             </div>
         </form>
     </div>
